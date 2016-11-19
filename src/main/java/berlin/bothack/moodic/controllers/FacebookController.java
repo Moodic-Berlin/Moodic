@@ -1,9 +1,12 @@
 package berlin.bothack.moodic.controllers;
 
 import berlin.bothack.moodic.model.fb.json.Callback;
+import berlin.bothack.moodic.services.SpotifyService;
+import berlin.bothack.moodic.util.Messages;
 import berlin.bothack.moodic.util.PropertyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +20,14 @@ import org.springframework.web.bind.annotation.*;
 public class FacebookController {
 	private static final String FB_VERIFY_TOKEN = PropertyUtil.loadProperty("VERIFY_TOKEN", "V0qG96lHz1u8f5uOsRYA");
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	private final Messages messages;
+	private final SpotifyService spotifyService;
+
+	@Autowired
+	public FacebookController(Messages messages, SpotifyService spotifyService) {
+		this.messages = messages;
+		this.spotifyService = spotifyService;
+	}
 
 	@RequestMapping(
 			value = "/spotifyWebhook",
