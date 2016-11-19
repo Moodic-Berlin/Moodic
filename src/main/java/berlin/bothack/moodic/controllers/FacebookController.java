@@ -9,6 +9,7 @@ import berlin.bothack.moodic.model.microsoft.cognitive.EmotionResponse;
 import berlin.bothack.moodic.services.LogicService;
 import berlin.bothack.moodic.services.MicrosoftCognitiveService;
 import berlin.bothack.moodic.services.SpotifyService;
+import berlin.bothack.moodic.services.WatsonConversationService;
 import berlin.bothack.moodic.util.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,15 +33,25 @@ public class FacebookController {
 	private final MessageSender messageSender;
 	private final Messages messages;
 	private final MicrosoftCognitiveService microsoftCognitiveService;
+	private final WatsonConversationService watsonConversationService;
 	private final LogicService logicService;
 
 	@Autowired
-	public FacebookController(Messages messages, SpotifyService spotifyService, Conf conf, MessageSender messageSender, MicrosoftCognitiveService microsoftCognitiveService, LogicService logicService) {
+	public FacebookController(
+			Messages messages,
+			SpotifyService spotifyService,
+			Conf conf,
+			MessageSender messageSender,
+			MicrosoftCognitiveService microsoftCognitiveService,
+			WatsonConversationService watsonConversationService,
+			LogicService logicService
+	) {
 		this.spotifyService = spotifyService;
 		this.conf = conf;
 		this.messageSender = messageSender;
 		this.messages = messages;
 		this.microsoftCognitiveService = microsoftCognitiveService;
+		this.watsonConversationService = watsonConversationService;
 		this.logicService = logicService;
 	}
 
@@ -88,12 +99,16 @@ public class FacebookController {
 				String senderId = messaging.sender.id;
 				String imageUrl = getImageUrl(messaging);
 				String quickReply = getQuickReply(messaging);
+				String text = getTextMessage(messaging);
 
 				if(imageUrl != null) {
 					processImage(senderId, imageUrl);
 				}
 				else if(quickReply != null) {
 					processQuickReply(senderId, quickReply);
+				}
+				else if(text != null) {
+					processTextMessage(senderId, text);
 				}
 				else {
 					log.info("unknown action for {}", senderId);
@@ -122,16 +137,23 @@ public class FacebookController {
 		return null;
 	}
 
+	private String getTextMessage(Messaging messaging) {
+		if(messaging.message != null && messaging.message.text != null) {
+			return messaging.message.text;
+		}
+		return null;
+	}
+
 	private Response processTextMessage(String senderId, String text) throws IOException {
-		// TODO: your custom impl goes here
-		Response response = messageSender.send(senderId, text);
-		if(response != null) {
-			log.info("message {} sent back to {} successfully!", text, senderId);
+		try {
+			Emotion emotion = watsonConversationService.retrieveEmotion(text);
+			log.info("text {} converted emotion {}", text, emotion);
+			return processEmotion(senderId, emotion.name());
 		}
-		else {
-			log.warn("error replying back to {}", senderId);
+		catch (Exception ex) {
+			log.warn("error processing text to emotion/genre: {}", text);
+			return sendNoEmotion(senderId);
 		}
-		return response;
 	}
 
 	private Response processImage(String senderId, String imageUrl) throws IOException {
@@ -139,12 +161,10 @@ public class FacebookController {
 			EmotionResponse emotionResponse = microsoftCognitiveService.retrieveEmotion(imageUrl);
 			log.info("Emotion Response is {}", emotionResponse);
 			Emotion emotion = microsoftCognitiveService.getMostLikableEmotion(emotionResponse);
-			String genre = logicService.emotionToGenre(emotion.name());
-			log.info("Received following quick reply action: {}, corresponding genre is: {}", emotion.name(), genre);
-			messageSender.send(senderId, "Your emotion is " + emotion.name());
-			return messageSender.send(senderId, spotifyService.retrieveSpotifyUrl(spotifyService.randomTrackForGenre(genre)));
-		} catch (Exception ex) {
-			log.debug("Something went really wrong, imageUrl is : {}", imageUrl);
+			return processEmotion(senderId, emotion.name());
+		}
+		catch (Exception ex) {
+			log.warn("error processing image to emotion/genre: {}", imageUrl);
 			return sendNoEmotion(senderId);
 		}
 	}
@@ -155,12 +175,19 @@ public class FacebookController {
 		return messageSender.send(senderId, spotifyService.retrieveSpotifyUrl(spotifyService.randomTrackForGenre(genre)));
 	}
 
+	private Response processEmotion(String senderId, String emotion) throws IOException {
+		String genre = logicService.emotionToGenre(emotion);
+		log.info("Received following quick reply action: {}, corresponding genre is: {}", emotion, genre);
+		messageSender.send(senderId, "Your emotion is " + emotion);
+		return messageSender.send(senderId, spotifyService.retrieveSpotifyUrl(spotifyService.randomTrackForGenre(genre)));
+	}
+
 	private Response sendFooterQuickReply(String senderId) throws IOException {
 		QuickReplyBuilder builder = QuickReplyBuilder.builder();
 		for (String emotion : spotifyService.listEmotions()) {
 			builder.addQuickReply(emotion);
 		}
-		return messageSender.send(senderId, messages.get("dabot.howDoYouFeel"), builder.build());
+		return messageSender.send(senderId, "Hey, how do you feel?", builder.build());
 	}
 
 	private Response sendNoEmotion(String senderId) throws IOException {
