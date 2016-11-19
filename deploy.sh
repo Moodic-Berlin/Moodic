@@ -10,7 +10,7 @@ echo
 echo "DEPLOY..."
 echo
 
-scp target/moodic.jar xonix@ec2-54-218-119-31.us-west-2.compute.amazonaws.com:~/moodic
+scp moodic.conf target/moodic.jar xonix@ec2-54-218-119-31.us-west-2.compute.amazonaws.com:~/moodic
 
 echo
 echo "RESTART..."

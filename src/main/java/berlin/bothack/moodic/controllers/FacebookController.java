@@ -1,12 +1,12 @@
 package berlin.bothack.moodic.controllers;
 
+import berlin.bothack.moodic.Conf;
 import berlin.bothack.moodic.model.fb.MessageSender;
 import berlin.bothack.moodic.model.fb.json.Callback;
 import berlin.bothack.moodic.model.fb.json.Entry;
 import berlin.bothack.moodic.model.fb.json.Messaging;
 import berlin.bothack.moodic.model.fb.json.Response;
 import berlin.bothack.moodic.services.SpotifyService;
-import berlin.bothack.moodic.util.PropertyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +23,14 @@ import org.springframework.web.bind.annotation.*;
 public class FacebookController {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	private final SpotifyService spotifyService;
+	private final Conf conf;
+	private final MessageSender messageSender;
 
 	@Autowired
-	public FacebookController(SpotifyService spotifyService) {
+	public FacebookController(SpotifyService spotifyService, Conf conf, MessageSender messageSender) {
 		this.spotifyService = spotifyService;
+		this.conf = conf;
+		this.messageSender = messageSender;
 	}
 
 	@RequestMapping(
@@ -51,7 +55,7 @@ public class FacebookController {
 			@RequestParam("hub.verify_token") String token
 	) {
 		log.info("webhook received, mode = {}, challenge = {}, token = {}", mode, challenge, token);
-		if(PropertyUtil.FB_VERIFY_TOKEN.equals(token)) {
+		if(conf.FB_VERIFY_TOKEN.equals(token)) {
 			log.info("webhook verify ok, token = {}", token);
 			return challenge;
 		}
@@ -73,7 +77,7 @@ public class FacebookController {
 				String senderId = messaging.sender.id;
 				if(messaging.message != null) {
 					String text = messaging.message.text;
-					Response response = MessageSender.send(senderId, text);
+					Response response = messageSender.send(senderId, text);
 					if(response != null) {
 						log.info("message {} sent back to {} successfully!", text, senderId);
 					}
