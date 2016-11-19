@@ -1,6 +1,7 @@
 package berlin.bothack.moodic.services;
 
 import berlin.bothack.moodic.enums.Emotion;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -12,13 +13,36 @@ public class WatsonConversationServiceTests {
     public void testHappiness() {
         WatsonConversationService service = new WatsonConversationService();
         Emotion emotion = service.retrieveEmotion("Happy");
-        assert Emotion.HAPPINESS.equals(emotion);
+        Assert.assertEquals(Emotion.HAPPINESS, emotion);
     }
 
     @Test
     public void testJoyful() {
         WatsonConversationService service = new WatsonConversationService();
         Emotion emotion = service.retrieveEmotion("Awesome Man!");
-        assert Emotion.JOYFUL.equals(emotion);
+        Assert.assertEquals(Emotion.JOYFUL, emotion);
+    }
+
+    @Test
+    public void testFuck() {
+        WatsonConversationService service = new WatsonConversationService();
+        Emotion emotion = service.retrieveEmotion("I feel fuck!");
+        Assert.assertEquals(Emotion.NEUTRAL, emotion);
+        emotion = service.retrieveEmotion("Fuck you!");
+        Assert.assertEquals(Emotion.MAD, emotion);
+    }
+
+    @Test
+    public void testKill() {
+        WatsonConversationService service = new WatsonConversationService();
+        Emotion emotion = service.retrieveEmotion("I will kill him!");
+        Assert.assertEquals(Emotion.MAD, emotion);
+    }
+
+    @Test
+    public void test4() {
+        WatsonConversationService service = new WatsonConversationService();
+        Emotion emotion = service.retrieveEmotion("Life surprise confuse interested");
+        Assert.assertEquals(Emotion.HAPPINESS, emotion);
     }
 }
