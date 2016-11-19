@@ -182,13 +182,16 @@ public class FacebookController {
 		return messageSender.send(senderId, spotifyService.retrieveSpotifyUrl(spotifyService.randomTrackForGenre(genre)));
 	}
 
-	private Response sendFooterQuickReply(String senderId) throws IOException {
-		QuickReplyBuilder builder = QuickReplyBuilder.builder();
-		for (String emotion : spotifyService.listEmotions()) {
-			builder.addQuickReply(emotion);
-		}
-		return messageSender.send(senderId, "Hey, how do you feel?", builder.build());
-	}
+    private Response sendFooterQuickReply(String senderId) throws IOException {
+        QuickReplyBuilder builder = QuickReplyBuilder.builder();
+        int i = 0;
+        for (String emotion : spotifyService.listEmotions()) {
+            builder.addQuickReply(emotion);
+            if (++i > 10) // TODO improve
+                break;
+        }
+        return messageSender.send(senderId, "Hey, how do you feel?", builder.build());
+    }
 
 	private Response sendNoEmotion(String senderId) throws IOException {
 		return messageSender.send(senderId, "No Emotion detected, please give it another try!");
