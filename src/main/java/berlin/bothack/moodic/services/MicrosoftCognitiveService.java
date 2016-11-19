@@ -15,7 +15,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ import static berlin.bothack.moodic.enums.Emotion.*;
 /**
  * Created by Oleksandr Shchetynin on 11/19/2016.
  */
-@Component
+@Service
 public class MicrosoftCognitiveService {
     private transient final Gson GSON;
 

@@ -4,7 +4,7 @@ package berlin.bothack.moodic.enums;
  * Created by Oleksandr Shchetynin on 11/19/2016.
  */
 public enum Genre {
-    BLUEGRASS,
+    /*BLUEGRASS,
     BLUES,
     CHIPTUNE,
     CLASSICAL,
@@ -20,5 +20,5 @@ public enum Genre {
     REGGAE,
     ROCK,
     SMOOTH_JAZZ,
-    SOUL
+    SOUL*/
 }

@@ -1,0 +1,436 @@
+Alternative Metal,Mad,0.00,0.02
+Big Beat,Mad,0.02,0.07
+Black Metal,Mad,0.07,0.11
+Breakbeat,Mad,0.11,0.13
+Crunk,Mad,0.13,0.17
+Doom Metal,Mad,0.17,0.21
+Drum and Bass,Mad,0.21,0.31
+Dubstep,Mad,0.31,0.39
+Hard Rock,Mad,0.39,0.47
+Hardcore,Mad,0.47,0.54
+Industrial Metal,Mad,0.54,0.60
+Metal,Mad,0.60,0.69
+Nu Metal,Mad,0.69,0.70
+Power Metal,Mad,0.70,0.74
+Progressive Metal,Mad,0.74,0.78
+Punk,Mad,0.78,0.87
+Rap-Metal,Mad,0.87,0.91
+Rock,Mad,0.91,0.92
+Techno,Mad,0.92,0.96
+Thrash Metal,Mad,0.96,1.00
+Alternative Metal,anger,0.00,0.03
+Black Metal,anger,0.03,0.05
+Breakbeat,anger,0.05,0.11
+Crunk,anger,0.11,0.12
+Doom Metal,anger,0.12,0.14
+Drum and Bass,anger,0.14,0.22
+Dubstep,anger,0.22,0.30
+Garage Rock,anger,0.30,0.36
+Gothic Rock,anger,0.36,0.42
+Hardcore,anger,0.42,0.45
+Hyphy,anger,0.45,0.46
+Industrial Metal,anger,0.46,0.48
+Metal,anger,0.48,0.60
+Nerdcore,anger,0.60,0.65
+Nu Metal,anger,0.65,0.69
+Power Metal,anger,0.69,0.71
+Progressive Metal,anger,0.71,0.73
+Punk,anger,0.73,0.78
+Rap-Metal,anger,0.78,0.80
+Rock,anger,0.80,0.83
+Techno,anger,0.83,0.98
+Thrash Metal,anger,0.98,1.00
+Acid Jazz,sadness,0.00,0.01
+Acoustic Blues,sadness,0.01,0.04
+Alternative Country,sadness,0.04,0.06
+Bebop,sadness,0.06,0.07
+Blues,sadness,0.07,0.15
+Blues Rock,sadness,0.15,0.16
+Breakbeat,sadness,0.16,0.19
+Cajun,sadness,0.19,0.22
+Classic Rock,sadness,0.22,0.27
+Classical,sadness,0.27,0.37
+Country Blues,sadness,0.37,0.38
+Country Swing,sadness,0.38,0.40
+Deep House,sadness,0.40,0.44
+Dubstep,sadness,0.44,0.47
+Electric Blues,sadness,0.47,0.50
+Emo,sadness,0.50,0.53
+Free Jazz,sadness,0.53,0.54
+Garage Rock,sadness,0.54,0.59
+Gothic Rock,sadness,0.59,0.62
+Jazz,sadness,0.62,0.72
+Jazz Fusion,sadness,0.72,0.73
+Jump Blues,sadness,0.73,0.74
+Neo-Soul,sadness,0.74,0.77
+Nu Jazz,sadness,0.77,0.78
+Rock,sadness,0.78,0.88
+Smooth Jazz,sadness,0.88,0.89
+Soul,sadness,0.89,0.99
+Swing,sadness,0.99,1.00
+Acid Jazz,Sleepy,0.00,0.01
+Acoustic Blues,Sleepy,0.01,0.05
+Alternative Country,Sleepy,0.05,0.08
+Ambient,Sleepy,0.08,0.15
+Bebop,Sleepy,0.15,0.16
+Blues,Sleepy,0.16,0.26
+Bossa Nova,Sleepy,0.26,0.29
+Cajun,Sleepy,0.29,0.32
+Classical,Sleepy,0.32,0.39
+Country Swing,Sleepy,0.39,0.42
+Emo,Sleepy,0.42,0.45
+Experimental,Sleepy,0.45,0.49
+Free Jazz,Sleepy,0.49,0.50
+Jazz,Sleepy,0.50,0.60
+Jazz Fusion,Sleepy,0.60,0.61
+Jump Blues,Sleepy,0.61,0.65
+Mariachi,Sleepy,0.65,0.68
+Merengue,Sleepy,0.68,0.71
+Native American,Sleepy,0.71,0.73
+Neo-Soul,Sleepy,0.73,0.76
+New Age,Sleepy,0.76,0.78
+Samba,Sleepy,0.78,0.81
+Shoegaze,Sleepy,0.81,0.85
+Smooth Jazz,Sleepy,0.85,0.86
+Soul,Sleepy,0.86,0.96
+Swing,Sleepy,0.96,0.97
+Tango,Sleepy,0.97,1.00
+Alternative Country,neutral,0.00,0.03
+Ambient,neutral,0.03,0.06
+Big Beat,neutral,0.06,0.08
+Blues,neutral,0.08,0.15
+Blues Rock,neutral,0.15,0.16
+Breakbeat,neutral,0.16,0.18
+Cajun,neutral,0.18,0.21
+Classical,neutral,0.21,0.28
+Country,neutral,0.28,0.29
+Country Swing,neutral,0.29,0.32
+Deep House,neutral,0.32,0.39
+Dubstep,neutral,0.39,0.41
+Electronic,neutral,0.41,0.42
+Electronica,neutral,0.42,0.44
+Folk,neutral,0.44,0.45
+Funk,neutral,0.45,0.48
+Garage Rock,neutral,0.48,0.51
+Gothic Rock,neutral,0.51,0.54
+HipHop,neutral,0.54,0.55
+House,neutral,0.55,0.60
+Jazz,neutral,0.60,0.67
+Latin,neutral,0.67,0.68
+Pop,neutral,0.68,0.73
+Progressive Rock,neutral,0.73,0.76
+Psychedelic Rock,neutral,0.76,0.79
+Reggae,neutral,0.79,0.80
+Rock,neutral,0.80,0.90
+Soul,neutral,0.90,0.97
+Techno,neutral,0.97,1.00
+Ambient,Romantic,0.00,0.05
+Blues,Romantic,0.05,0.15
+Bossa Nova,Romantic,0.15,0.20
+Cajun,Romantic,0.20,0.24
+Emo,Romantic,0.24,0.29
+Folk,Romantic,0.29,0.34
+Gospel,Romantic,0.34,0.37
+Jazz,Romantic,0.37,0.47
+J-Pop,Romantic,0.47,0.50
+Jump Blues,Romantic,0.50,0.54
+Mariachi,Romantic,0.54,0.59
+Merengue,Romantic,0.59,0.64
+Pop,Romantic,0.64,0.69
+Pop Rock,Romantic,0.69,0.72
+Power Pop,Romantic,0.72,0.75
+R&B,Romantic,0.75,0.77
+Samba,Romantic,0.77,0.82
+Soul,Romantic,0.82,0.95
+Tango,Romantic,0.95,1.00
+Acoustic Blues,contempt,0.00,0.01
+Blues,contempt,0.01,0.07
+Chiptune,contempt,0.07,0.08
+Classical,contempt,0.08,0.28
+Country,contempt,0.28,0.29
+Dancehall,contempt,0.29,0.31
+Dance-Punk,contempt,0.31,0.32
+Deep House,contempt,0.32,0.37
+Drum and Bass,contempt,0.37,0.38
+Dub,contempt,0.38,0.40
+EDM,contempt,0.40,0.41
+Electro,contempt,0.41,0.42
+Electronic,contempt,0.42,0.43
+Electronica,contempt,0.43,0.44
+Folk,contempt,0.44,0.48
+Funk,contempt,0.48,0.49
+Happy Hardcore,contempt,0.49,0.50
+House,contempt,0.50,0.55
+Jazz,contempt,0.55,0.61
+Jungle,contempt,0.61,0.62
+Metal,contempt,0.62,0.67
+Neo-Soul,contempt,0.67,0.68
+Nu Jazz,contempt,0.68,0.69
+Pop,contempt,0.69,0.71
+Reggae,contempt,0.71,0.76
+Rock,contempt,0.76,0.86
+Ska,contempt,0.86,0.87
+Soul,contempt,0.87,0.93
+Swing,contempt,0.93,0.94
+Techno,contempt,0.94,0.99
+Trance,contempt,0.99,1.00
+Blues,disgust,0.00,0.05
+Chiptune,disgust,0.05,0.06
+Classical,disgust,0.06,0.26
+Country,disgust,0.26,0.27
+Deep House,disgust,0.27,0.32
+Drum and Bass,disgust,0.32,0.37
+Electro,disgust,0.37,0.38
+Electronic,disgust,0.38,0.39
+Electronica,disgust,0.39,0.40
+Folk,disgust,0.40,0.42
+Happy Hardcore,disgust,0.42,0.47
+House,disgust,0.47,0.52
+Jazz,disgust,0.52,0.57
+Jungle,disgust,0.57,0.58
+Metal,disgust,0.58,0.63
+Nu Jazz,disgust,0.63,0.64
+Reggae,disgust,0.64,0.69
+Rock,disgust,0.69,0.79
+Soul,disgust,0.79,0.84
+Swing,disgust,0.84,0.85
+Techno,disgust,0.85,0.90
+Trance,disgust,0.90,1.00
+Acid Jazz,fear,0.00,0.01
+Bebop,fear,0.01,0.02
+Blues,fear,0.02,0.05
+Bossa Nova,fear,0.05,0.06
+Chiptune,fear,0.06,0.09
+Classic Rock,fear,0.09,0.11
+Classical,fear,0.11,0.21
+Country,fear,0.21,0.24
+Dancehall,fear,0.24,0.26
+Dance-Punk,fear,0.26,0.27
+Deep House,fear,0.27,0.28
+Drum and Bass,fear,0.28,0.29
+Dub,fear,0.29,0.31
+EDM,fear,0.31,0.34
+Electro,fear,0.34,0.35
+Electronic,fear,0.35,0.40
+Electronica,fear,0.40,0.41
+Flamenco,fear,0.41,0.43
+Folk,fear,0.43,0.47
+Free Jazz,fear,0.47,0.48
+Funk,fear,0.48,0.49
+Grime,fear,0.49,0.51
+Grunge,fear,0.51,0.54
+Happy Hardcore,fear,0.54,0.56
+House,fear,0.56,0.57
+Jazz,fear,0.57,0.58
+Jazz Fusion,fear,0.58,0.59
+Jungle,fear,0.59,0.60
+Latin,fear,0.60,0.61
+Latin Jazz,fear,0.61,0.63
+Mariachi,fear,0.63,0.64
+Merengue,fear,0.64,0.65
+Miami Bass,fear,0.65,0.66
+Nu Jazz,fear,0.66,0.67
+Pop,fear,0.67,0.72
+Punk,fear,0.72,0.74
+Reggae,fear,0.74,0.79
+Reggaeton,fear,0.79,0.80
+Rock,fear,0.80,0.85
+Rock En Espanol,fear,0.85,0.88
+Salsa,fear,0.88,0.90
+Ska,fear,0.90,0.91
+Smooth Jazz,fear,0.91,0.92
+Soul,fear,0.92,0.95
+Southern Rock,fear,0.95,0.98
+Swing,fear,0.98,0.99
+Trance,fear,0.99,1.00
+Bluegrass,happiness,0.00,0.01
+Blues,happiness,0.01,0.03
+Bossa Nova,happiness,0.03,0.04
+Brit Pop,happiness,0.04,0.06
+Chiptune,happiness,0.06,0.09
+Classic Rock,happiness,0.09,0.11
+Classical,happiness,0.11,0.13
+Country,happiness,0.13,0.16
+Country Blues,happiness,0.16,0.17
+Country-Rock,happiness,0.17,0.18
+Dancehall,happiness,0.18,0.20
+Dance-Punk,happiness,0.20,0.21
+Deep House,happiness,0.21,0.22
+Drum and Bass,happiness,0.22,0.23
+Dub,happiness,0.23,0.25
+EDM,happiness,0.25,0.28
+Electro,happiness,0.28,0.29
+Electronic,happiness,0.29,0.35
+Electronica,happiness,0.35,0.36
+Euro Pop,happiness,0.36,0.38
+Flamenco,happiness,0.38,0.40
+Folk,happiness,0.40,0.44
+Folk Rock,happiness,0.44,0.45
+Funk,happiness,0.45,0.46
+Gospel,happiness,0.46,0.47
+Grime,happiness,0.47,0.49
+Grunge,happiness,0.49,0.52
+Happy Hardcore,happiness,0.52,0.54
+House,happiness,0.54,0.55
+Jazz,happiness,0.55,0.56
+J-Pop,happiness,0.56,0.58
+Jungle,happiness,0.58,0.59
+Latin,happiness,0.59,0.60
+Latin Jazz,happiness,0.60,0.62
+Mariachi,happiness,0.62,0.63
+Merengue,happiness,0.63,0.64
+Miami Bass,happiness,0.64,0.65
+Neo-Soul,happiness,0.65,0.66
+Nu Jazz,happiness,0.66,0.67
+Pop,happiness,0.67,0.72
+Pop Rock,happiness,0.72,0.73
+Power Pop,happiness,0.73,0.74
+Punk,happiness,0.74,0.76
+Reggae,happiness,0.76,0.82
+Reggaeton,happiness,0.82,0.83
+Rock,happiness,0.83,0.88
+Rock En Espanol,happiness,0.88,0.91
+Salsa,happiness,0.91,0.93
+Ska,happiness,0.93,0.94
+Southern Rock,happiness,0.94,0.97
+Swing,happiness,0.97,0.98
+Traditional Country,happiness,0.98,0.99
+Trance,happiness,0.99,1.00
+Bluegrass,Joyful,0.00,0.01
+Brit Pop,Joyful,0.01,0.04
+Chiptune,Joyful,0.04,0.09
+Country,Joyful,0.09,0.10
+Country-Rock,Joyful,0.10,0.11
+Dancehall,Joyful,0.11,0.12
+Dance-Punk,Joyful,0.12,0.13
+Drum and Bass,Joyful,0.13,0.16
+EDM,Joyful,0.16,0.21
+Electro,Joyful,0.21,0.22
+Electronic,Joyful,0.22,0.24
+Electronica,Joyful,0.24,0.25
+Euro Pop,Joyful,0.25,0.26
+Flamenco,Joyful,0.26,0.29
+Folk Rock,Joyful,0.29,0.33
+Funk,Joyful,0.33,0.34
+Grime,Joyful,0.34,0.38
+Happy Hardcore,Joyful,0.38,0.43
+J-Pop,Joyful,0.43,0.47
+Jungle,Joyful,0.47,0.52
+Latin,Joyful,0.52,0.57
+Latin Jazz,Joyful,0.57,0.60
+Miami Bass,Joyful,0.60,0.64
+Pop,Joyful,0.64,0.66
+Punk,Joyful,0.66,0.71
+R&B,Joyful,0.71,0.72
+Reggae,Joyful,0.72,0.73
+Reggaeton,Joyful,0.73,0.77
+Rock,Joyful,0.77,0.87
+rock and roll,Joyful,0.87,0.91
+Rock En Espanol,Joyful,0.91,0.96
+Salsa,Joyful,0.96,0.99
+Traditional Country,Joyful,0.99,1.00
+Big Beat,surprise,0.00,0.03
+Breakbeat,surprise,0.03,0.06
+Chiptune,surprise,0.06,0.12
+Crunk,surprise,0.12,0.13
+Deep House,surprise,0.13,0.16
+Dubstep,surprise,0.16,0.19
+EDM,surprise,0.19,0.25
+Electronic,surprise,0.25,0.35
+Funk,surprise,0.35,0.45
+Grime,surprise,0.45,0.46
+Happy Hardcore,surprise,0.46,0.52
+Hardcore,surprise,0.52,0.53
+HipHop,surprise,0.53,0.58
+Hyphy,surprise,0.58,0.59
+Metal,surprise,0.59,0.62
+Miami Bass,surprise,0.62,0.63
+Nerdcore,surprise,0.63,0.64
+Pop,surprise,0.64,0.74
+Progressive Rock,surprise,0.74,0.77
+Punk,surprise,0.77,0.79
+R&B,surprise,0.79,0.80
+Rap,surprise,0.80,0.85
+Reggaeton,surprise,0.85,0.86
+Rock,surprise,0.86,0.96
+Rock En Espanol,surprise,0.96,0.99
+Techno,surprise,0.99,1.00
+Alternative Metal,Sportive,0.00,0.05
+Big Beat,Sportive,0.05,0.10
+Breakbeat,Sportive,0.10,0.15
+Crunk,Sportive,0.15,0.18
+Dance-Punk,Sportive,0.18,0.21
+Drum and Bass,Sportive,0.21,0.33
+Dubstep,Sportive,0.33,0.35
+Hard Rock,Sportive,0.35,0.40
+Hardcore,Sportive,0.40,0.50
+HipHop,Sportive,0.50,0.52
+Metal,Sportive,0.52,0.67
+Nu Metal,Sportive,0.67,0.72
+Progressive Metal,Sportive,0.72,0.73
+Punk,Sportive,0.73,0.78
+Rap,Sportive,0.78,0.80
+Rap-Metal,Sportive,0.80,0.85
+Rock,Sportive,0.85,1.00
+Alternative Metal,Rocking,0.00,0.01
+Black Metal,Rocking,0.01,0.02
+Blues Rock,Rocking,0.02,0.07
+Classic Rock,Rocking,0.07,0.09
+Doom Metal,Rocking,0.09,0.10
+Folk Rock,Rocking,0.10,0.16
+Garage Rock,Rocking,0.16,0.21
+Gospel,Rocking,0.21,0.23
+Gothic Rock,Rocking,0.23,0.28
+Grunge,Rocking,0.28,0.29
+Hard Rock,Rocking,0.29,0.38
+Industrial Metal,Rocking,0.38,0.39
+Metal,Rocking,0.39,0.46
+Nu Metal,Rocking,0.46,0.48
+Pop Rock,Rocking,0.48,0.50
+Power Metal,Rocking,0.50,0.51
+Power Pop,Rocking,0.51,0.53
+Progressive Metal,Rocking,0.53,0.54
+Progressive Rock,Rocking,0.54,0.61
+Psychedelic Rock,Rocking,0.61,0.68
+Punk,Rocking,0.68,0.76
+Rap-Metal,Rocking,0.76,0.77
+Rock,Rocking,0.77,0.92
+rock and roll,Rocking,0.92,0.97
+Rock En Espanol,Rocking,0.97,0.98
+Southern Rock,Rocking,0.98,0.99
+Thrash Metal,Rocking,0.99,1.00
+Big Beat,Clubbing,0.00,0.02
+Breakbeat,Clubbing,0.02,0.04
+Chiptune,Clubbing,0.04,0.09
+Deep House,Clubbing,0.09,0.19
+Drum and Bass,Clubbing,0.19,0.21
+Dubstep,Clubbing,0.21,0.23
+EDM,Clubbing,0.23,0.28
+Electro,Clubbing,0.28,0.34
+Electronic,Clubbing,0.34,0.54
+Electronica,Clubbing,0.54,0.60
+Grime,Clubbing,0.60,0.63
+Happy Hardcore,Clubbing,0.63,0.68
+House,Clubbing,0.68,0.74
+Jungle,Clubbing,0.74,0.79
+Miami Bass,Clubbing,0.79,0.84
+R&B,Clubbing,0.84,0.89
+Reggaeton,Clubbing,0.89,0.92
+Techno,Clubbing,0.92,0.96
+Trance,Clubbing,0.96,1.00
+Alternative Hip Hop,Rap,0.00,0.07
+Big Beat,Rap,0.07,0.13
+Crunk,Rap,0.13,0.20
+Dubstep,Rap,0.20,0.23
+Grime,Rap,0.23,0.30
+HipHop,Rap,0.30,0.55
+Hyphy,Rap,0.55,0.60
+Miami Bass,Rap,0.60,0.67
+Nerdcore,Rap,0.67,0.74
+R&B,Rap,0.74,0.80
+Rap,Rap,0.80,0.95
+Reggaeton,Rap,0.95,1.00
+Dancehall,Reggae,0.00,0.15
+Dub,Reggae,0.15,0.30
+Reggae,Reggae,0.30,0.90
+Ska,Reggae,0.90,1.00

@@ -8,7 +8,7 @@ import com.wrapper.spotify.methods.TrackSearchRequest;
 import com.wrapper.spotify.models.Track;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -23,7 +23,7 @@ import static berlin.bothack.moodic.enums.Genre.*;
 /**
  * Created by Oleksandr Shchetynin on 11/19/2016.
  */
-@Component
+@Service
 public class SpotifyService {
     private static final String SPOTIFY_CLIENT_ID = "2e2a3b86cbe24519afac80669c071c0a";
     private static final String SPOTIFY_CLIENT_SECRET = "85ee4f6118b24c0ca3c3711d5f1d3c27";
@@ -35,6 +35,7 @@ public class SpotifyService {
 
     static {
         random = new Random();
+/*
         emotionsMap.put(Emotion.ANGER, new Genre[]{ELECTRONICA, METAL, ROCK});
         emotionsMap.put(Emotion.CONTEMPT, new Genre[]{ELECTRONICA, METAL, ROCK});
         emotionsMap.put(Emotion.DISGUST, new Genre[]{ELECTRONICA, METAL, ROCK});
@@ -45,6 +46,7 @@ public class SpotifyService {
         emotionsMap.put(Emotion.SADNESS, new Genre[]{BLUES, CLASSICAL, ROCK, SOUL});
         emotionsMap.put(Emotion.SLEEPY, new Genre[]{BLUES, CLASSICAL, JAZZ});
         emotionsMap.put(Emotion.SURPRISE, new Genre[]{BLUEGRASS, DANCE_PUNK, FUNK, HAPPY_HARDCORE, JUNGLE});
+*/
     }
 
     private Api setup() {

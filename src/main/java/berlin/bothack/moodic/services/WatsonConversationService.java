@@ -6,12 +6,12 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Oleksandr Shchetynin on 11/19/2016.
  */
-@Component
+@Service
 public class WatsonConversationService {
     private final static String PASSWORD = "nWTuKmM34l73";
     private final static String USERNAME = "f563956b-0761-4533-99d1-088746755517";
