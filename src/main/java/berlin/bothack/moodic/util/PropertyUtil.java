@@ -1,6 +1,7 @@
 package berlin.bothack.moodic.util;
 
-import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author vgorin
@@ -9,6 +10,18 @@ import java.util.regex.Pattern;
 
 
 public class PropertyUtil {
+	public static final String FB_VERIFY_TOKEN = PropertyUtil.loadProperty("VERIFY_TOKEN", "V0qG96lHz1u8f5uOsRYA");
+	public static final String FB_END_POINT = "https://graph.facebook.com/v2.6/me/messages";
+	public static final String FB_PAGE_ACCESS_TOKEN = PropertyUtil.loadProperty("ACCESS_TOKEN", "EAAZA0fBd0Nd4BAIGCIWq9JSGwZBYgPuT4hcrPJVmPrnbg5kYkUZAftWKQdJf0ty98qrW2vlNXSHKXWZC0gZAa24EdF8ZBvz4NOIGMfalXtAZBmtDXiFG3gnkBvErCbHbioATllSNBfxBgylWgB1fJ2WbvH2rC8kWbEzwKHLWollxQZDZD");
+	public static final String FB_POST_URL = String.format("%s?access_token=%s", FB_END_POINT, FB_PAGE_ACCESS_TOKEN);
+	private static final Logger log = LoggerFactory.getLogger(PropertyUtil.class);
+
+	static {
+		log.info("FB_VERIFY_TOKEN (VERIFY_TOKEN): {}", FB_VERIFY_TOKEN);
+		log.info("FB_END_POINT: {}", FB_END_POINT);
+		log.info("FB_PAGE_ACCESS_TOKEN (ACCESS_TOKEN): {}", FB_PAGE_ACCESS_TOKEN);
+		log.info("FB_POST_URL: {}", FB_POST_URL);
+	}
 
 	public static String loadProperty(String key, String defaultValue) {
 		// try to load property as is

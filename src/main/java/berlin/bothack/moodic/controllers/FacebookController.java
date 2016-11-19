@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class FacebookController {
-	private static final String FB_VERIFY_TOKEN = PropertyUtil.loadProperty("VERIFY_TOKEN", "V0qG96lHz1u8f5uOsRYA");
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	private final Messages messages;
 	private final SpotifyService spotifyService;
@@ -55,7 +54,7 @@ public class FacebookController {
 			@RequestParam("hub.verify_token") String token
 	) {
 		log.info("webhook received, mode = {}, challenge = {}, token = {}", mode, challenge, token);
-		if(FB_VERIFY_TOKEN.equals(token)) {
+		if(PropertyUtil.FB_VERIFY_TOKEN.equals(token)) {
 			log.info("webhook verify ok, token = {}", token);
 			return challenge;
 		}
