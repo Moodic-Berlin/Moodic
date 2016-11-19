@@ -1,7 +1,10 @@
 package berlin.bothack.moodic.model.fb.json;
 
+import berlin.bothack.moodic.util.WebUtil;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang.StringUtils;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +31,12 @@ public class QuickReply {
 		this.contentType = "text";
 		this.title = title;
 		this.payload = payload;
+		String imgTitle = StringUtils.capitalize(title.toLowerCase()) + ".png";
+		InputStream imgStream = QuickReply.class.getResourceAsStream("/static/" + imgTitle);
+		String domain = WebUtil.getRequestDomain();
+		if (imgStream != null && domain != null) {
+			imageUrl = domain + "/" + imgTitle;
+		}
 	}
 
 	public static List<QuickReply> of(String... titles) {
