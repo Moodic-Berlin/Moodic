@@ -1,5 +1,6 @@
 package berlin.bothack.moodic.services;
 
+import berlin.bothack.moodic.enums.Emotion;
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.methods.ArtistSearchRequest;
 import com.wrapper.spotify.methods.TrackSearchRequest;
@@ -9,13 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
 /**
@@ -39,18 +34,7 @@ public class SpotifyService {
     }
 
     public List<String> listEmotions() {
-        return emotionsMap.keySet().stream().map(Enum::name).collect(Collectors.toList());
-    }
-
-    public String getRandomGenre(String emotion) {
-        Genre[] genres = emotionsMap.get(Emotion.valueOf(emotion));
-        return Arrays.stream(genres)
-                .map(Enum::name)
-                .map(v -> v.replace("_", " "))
-                .map(String::toLowerCase)
-                .map(StringUtils::capitalize)
-                .collect(Collectors.toList())
-                .get(random.nextInt(genres.length));
+        return Arrays.stream(Emotion.values()).map(Enum::name).collect(Collectors.toList());
     }
 
     public Set<String> retrieveSpotifyUrls(List<Track> tracks) {

@@ -53,4 +53,8 @@ public class LogicService {
         }
         return "wtf"; // XXX ???
     }
+
+    public String emotionToGenre(String emotion) {
+        return emotionToGenre(Emotion.valueOf(emotion.toUpperCase()));
+    }
 }
