@@ -195,9 +195,12 @@ public class FacebookController {
 			"You might like",
 			"Check this out",
 			"How about",
-			"Good song for you");
+			"Good song for you",
+			"Hope you'll like this artist",
+			"What about this album",
+			"Hope it will fit your mood");
 
-	static Random random = new Random();
+	private static Random random = new Random();
 	private Response sendTrack(String senderId, Track track) throws IOException {
 		messageSender.sendImg(senderId, spotifyService.retrieveSpotifyImage(track));
 		return messageSender.sendWebBtns(senderId,
