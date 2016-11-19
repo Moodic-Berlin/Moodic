@@ -120,7 +120,7 @@ public class FacebookController {
 							log.info("unknown action for {}", senderId);
 						}
 					}
-					sendFooterQuickReply(senderId, offset, 10);
+					sendFooterQuickReply(senderId, offset, 7);
 				} catch (Exception ex) {
 					messageSender.send(senderId, "Ups, we've got an error \uD83D\uDE1E: " + ex);
 				}
@@ -217,7 +217,7 @@ public class FacebookController {
 
     private Response sendFooterQuickReply(String senderId, int offset, int limit) throws IOException {
         QuickReplyBuilder builder = QuickReplyBuilder.builder();
-		List<String> strings = spotifyService.listEmotions();
+		List<String> strings = Emotion.listEmotionsNoExclusiveFace();
 		int len = strings.size();
 		int to = offset + limit;
 		boolean stillMoreAvail = to < len;

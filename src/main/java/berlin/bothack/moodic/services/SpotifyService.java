@@ -33,10 +33,6 @@ public class SpotifyService {
                 .build();
     }
 
-    public List<String> listEmotions() {
-        return Arrays.stream(Emotion.values()).map(Enum::name).collect(Collectors.toList());
-    }
-
     public Set<String> retrieveSpotifyUrls(List<Track> tracks) {
         Set<String> urls = new LinkedHashSet<>();
 
