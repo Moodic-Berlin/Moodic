@@ -1,9 +1,7 @@
 package berlin.bothack.moodic.model.fb;
 
 import berlin.bothack.moodic.Conf;
-import berlin.bothack.moodic.model.fb.json.Message;
-import berlin.bothack.moodic.model.fb.json.Recipient;
-import berlin.bothack.moodic.model.fb.json.Response;
+import berlin.bothack.moodic.model.fb.json.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
@@ -21,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author vgorin
@@ -45,13 +45,24 @@ public class MessageSender {
 	}
 
 	public Response send(String recipientId, String text) throws IOException {
-		return send(recipientId, new Message(text));
+		return send(new Recipient(recipientId), new Message(text));
 	}
 
-	public Response send(String recipientId, Message message) throws IOException {
-		log.info("sending a message to {}, message = {}", recipientId, message);
-		String jsonPayload = OBJECT_MAPPER.writeValueAsString(new Wrapper(recipientId, message));
-		log.info("json payload for {} is {}", recipientId, jsonPayload);
+	public Response send(String recipientId, String text, QuickReply... replies) throws IOException {
+		return send(recipientId, text, Arrays.asList(replies));
+	}
+
+	public Response send(String recipientId, String text, List<QuickReply> replies) throws IOException {
+		Recipient recipient = new Recipient(recipientId);
+		Message message = new Message(text);
+		message.quickReplies = replies;
+		return send(recipient, message);
+	}
+
+	private Response send(Recipient recipient, Message message) throws IOException {
+		log.info("sending a message to {}, message = {}", recipient, message);
+		String jsonPayload = OBJECT_MAPPER.writeValueAsString(new Messaging(recipient, message));
+		log.info("json payload for {} is {}", recipient, jsonPayload);
 		return sendJson(jsonPayload);
 	}
 
@@ -75,13 +86,4 @@ public class MessageSender {
 		}
 	}
 
-	public static class Wrapper {
-		public Recipient recipient;
-		public Message message;
-
-		Wrapper(String recipientId, Message message) {
-			this.recipient = new Recipient(recipientId);
-			this.message = message;
-		}
-	}
 }

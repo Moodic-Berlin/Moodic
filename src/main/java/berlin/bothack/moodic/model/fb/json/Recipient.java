@@ -15,4 +15,9 @@ public class Recipient {
 	public Recipient(String id) {
 		this.id = id;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("recipient #%s", id);
+	}
 }

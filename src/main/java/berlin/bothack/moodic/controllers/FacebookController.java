@@ -2,10 +2,7 @@ package berlin.bothack.moodic.controllers;
 
 import berlin.bothack.moodic.Conf;
 import berlin.bothack.moodic.model.fb.MessageSender;
-import berlin.bothack.moodic.model.fb.json.Callback;
-import berlin.bothack.moodic.model.fb.json.Entry;
-import berlin.bothack.moodic.model.fb.json.Messaging;
-import berlin.bothack.moodic.model.fb.json.Response;
+import berlin.bothack.moodic.model.fb.json.*;
 import berlin.bothack.moodic.services.SpotifyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,7 +74,7 @@ public class FacebookController {
 				String senderId = messaging.sender.id;
 				if(messaging.message != null) {
 					String text = messaging.message.text;
-					Response response = messageSender.send(senderId, text);
+					Response response = messageSender.send(senderId, text, QuickReply.of("Yes", "No"));
 					if(response != null) {
 						log.info("message {} sent back to {} successfully!", text, senderId);
 					}

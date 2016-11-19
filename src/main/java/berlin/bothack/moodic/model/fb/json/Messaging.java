@@ -13,4 +13,12 @@ public class Messaging {
 	public Message message;
 	public Delivery delivery;
 	public Read read;
+
+	public Messaging() {
+	}
+
+	public Messaging(Recipient recipient, Message message) {
+		this.recipient = recipient;
+		this.message = message;
+	}
 }
