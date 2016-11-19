@@ -74,7 +74,7 @@ public class FacebookController {
 				String senderId = messaging.sender.id;
 				if(messaging.message != null) {
 					String text = messaging.message.text;
-					Response response = messageSender.send(senderId, text, new QuickReply("yes"), new QuickReply("no"));
+					Response response = messageSender.send(senderId, text, QuickReply.of("Yes", "No"));
 					if(response != null) {
 						log.info("message {} sent back to {} successfully!", text, senderId);
 					}

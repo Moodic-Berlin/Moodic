@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author vgorin
@@ -48,9 +49,13 @@ public class MessageSender {
 	}
 
 	public Response send(String recipientId, String text, QuickReply... replies) throws IOException {
+		return send(recipientId, text, Arrays.asList(replies));
+	}
+
+	public Response send(String recipientId, String text, List<QuickReply> replies) throws IOException {
 		Recipient recipient = new Recipient(recipientId);
 		Message message = new Message(text);
-		message.quickReplies = Arrays.asList(replies);
+		message.quickReplies = replies;
 		return send(recipient, message);
 	}
 

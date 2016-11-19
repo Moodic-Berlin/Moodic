@@ -2,6 +2,9 @@ package berlin.bothack.moodic.model.fb.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author vgorin
  *         file created on 11/19/16 2:41 PM
@@ -25,5 +28,13 @@ public class QuickReply {
 		this.contentType = "text";
 		this.title = title;
 		this.payload = payload;
+	}
+
+	public static List<QuickReply> of(String... titles) {
+		List<QuickReply> replies = new ArrayList<>(titles.length);
+		for(String title: titles) {
+			replies.add(new QuickReply(title));
+		}
+		return replies;
 	}
 }
