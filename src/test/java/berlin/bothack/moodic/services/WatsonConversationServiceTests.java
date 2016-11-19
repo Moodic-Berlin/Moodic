@@ -14,4 +14,11 @@ public class WatsonConversationServiceTests {
         Emotion emotion = service.retrieveEmotion("Happy");
         assert Emotion.HAPPINESS.equals(emotion);
     }
+
+    @Test
+    public void testJoyful() {
+        WatsonConversationService service = new WatsonConversationService();
+        Emotion emotion = service.retrieveEmotion("Awesome Man!");
+        assert Emotion.JOYFUL.equals(emotion);
+    }
 }
