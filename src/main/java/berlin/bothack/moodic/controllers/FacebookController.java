@@ -31,7 +31,9 @@ import java.util.Random;
 
 @RestController
 public class FacebookController {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+    public static final String COOL_I_WANT_MORE = "Cool, I want more";
+    public static final String ANOTHER_ONE_PLEASE = "Another one, please";
+    private final Logger log = LoggerFactory.getLogger(getClass());
 	private final SpotifyService spotifyService;
 	private final Conf conf;
 	private final MessageSender messageSender;
@@ -207,13 +209,18 @@ public class FacebookController {
 			"Hope it will fit your mood");
 
 	private static Random random = new Random();
-	private Response sendTrack(String senderId, Track track) throws IOException {
-		messageSender.sendImg(senderId, spotifyService.retrieveSpotifyImage(track));
-		return messageSender.sendWebBtns(senderId,
-				listenToReplies.get(random.nextInt(listenToReplies.size())) + ": " + track.getArtists().get(0).getName() + " - " + track.getName(),
-				"Open in Spotify",
-				spotifyService.retrieveSpotifyUrl(track));
-	}
+
+    private Response sendTrack(String senderId, Track track) throws IOException {
+        messageSender.sendImg(senderId, spotifyService.retrieveSpotifyImage(track));
+        return messageSender.sendBtns(senderId,
+                listenToReplies.get(random.nextInt(listenToReplies.size())) + ": " + track.getArtists().get(0).getName() + " - " + track.getName(),
+                "Open in Spotify",
+                spotifyService.retrieveSpotifyUrl(track),
+                COOL_I_WANT_MORE,
+                COOL_I_WANT_MORE,
+                ANOTHER_ONE_PLEASE,
+                ANOTHER_ONE_PLEASE);
+    }
 
     private Response sendFooterQuickReply(String senderId, int offset, int limit) throws IOException {
         QuickReplyBuilder builder = QuickReplyBuilder.builder();
