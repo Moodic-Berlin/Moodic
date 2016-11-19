@@ -24,13 +24,15 @@ public class WatsonConversationService {
 
         MessageRequest newMessage = new MessageRequest.Builder().inputText(text).build();
         MessageResponse response = service.message(WORKSPACE_ID, newMessage).execute();
-        Emotion emotion = null;
+        Emotion emotion = Emotion.NEUTRAL;
         if (response.getEntities() != null && response.getEntities().size() > 0) {
             try {
                 emotion = Emotion.valueOf(response.getEntities().get(0).getValue().toUpperCase());
             } catch (Exception ex) {
-                log.debug("Weren't able to parse emotion", ex);
+                log.warn("Weren't able to parse emotion, using neutral", ex);
             }
+        } else {
+            log.warn("Hmmm, seems we can't determine emotion for: " + text);
         }
 
         return emotion;
