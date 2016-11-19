@@ -1,5 +1,6 @@
 package berlin.bothack.moodic.controllers;
 
+import berlin.bothack.moodic.util.PropertyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -7,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.text.MessageFormat;
 
 /**
  * @author vgorin
@@ -18,6 +17,7 @@ import java.text.MessageFormat;
 
 @RestController
 public class FacebookController {
+	private static final String FB_VERIFY_TOKEN = PropertyUtil.loadProperty("VERIFY_TOKEN", "V0qG96lHz1u8f5uOsRYA");
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	@RequestMapping(
@@ -33,7 +33,7 @@ public class FacebookController {
 			@RequestParam("hub.verify_token") String token
 	) {
 		log.info("webhook received, mode = {}, challenge = {}, token = {}", mode, challenge, token);
-		if("V0qG96lHz1u8f5uOsRYA".equals(token)) {
+		if(FB_VERIFY_TOKEN.equals(token)) {
 			log.info("webhook verify ok, token = {}", token);
 			return challenge;
 		}
