@@ -78,19 +78,75 @@ public class FacebookController {
 		for(Entry entry: callback.entry) {
 			for(Messaging messaging: entry.messaging) {
 				String senderId = messaging.sender.id;
-				if(messaging.message != null) {
-					String text = messaging.message.text;
-					Response response = messageSender.send(senderId, text, QuickReply.of("Yes", "No"));
-					if(response != null) {
-						log.info("message {} sent back to {} successfully!", text, senderId);
-					}
-					else {
-						log.warn("error replying back to {}", senderId);
-					}
+				String imageUrl = getImageUrl(messaging);
+				String quickReply = getQuickReply(messaging);
+
+				if(imageUrl != null) {
+					processImage(senderId, imageUrl);
+				}
+				else if(quickReply != null) {
+					processQuickReply(senderId, quickReply);
+				}
+				else {
+					log.info("unknown action for {}", senderId);
 				}
 			}
 		}
 		return "";
+	}
+
+
+	private String getImageUrl(Messaging messaging) {
+		if(messaging.message != null && messaging.message.attachments != null && messaging.message.attachments.size() > 0) {
+			Payload payload = messaging.message.attachments.iterator().next().payload;
+			if(payload != null && payload.url != null) {
+				return payload.url;
+			}
+		}
+		return null;
+	}
+
+	private String getQuickReply(Messaging messaging) {
+		if(messaging.message != null && messaging.message.quickReply != null && messaging.message.quickReply.payload != null) {
+			return messaging.message.quickReply.payload;
+		}
+		return null;
+	}
+
+	private Response processTextMessage(String senderId, String text) throws IOException {
+		// TODO: your custom impl goes here
+		Response response = messageSender.send(senderId, text);
+		if(response != null) {
+			log.info("message {} sent back to {} successfully!", text, senderId);
+		}
+		else {
+			log.warn("error replying back to {}", senderId);
+		}
+		return response;
+	}
+
+	private Response processImage(String senderId, String imageUrl) throws IOException {
+		// TODO: your custom impl goes here
+		Response response = messageSender.send(senderId, imageUrl);
+		if(response != null) {
+			log.info("message {} sent back to {} successfully!", imageUrl, senderId);
+		}
+		else {
+			log.warn("error replying back to {}", senderId);
+		}
+		return response;
+	}
+
+	private Response processQuickReply(String senderId, String payload) throws IOException {
+		// TODO: your custom impl goes here
+		Response response = messageSender.send(senderId, payload);
+		if(response != null) {
+			log.info("message {} sent back to {} successfully!", payload, senderId);
+		}
+		else {
+			log.warn("error replying back to {}", senderId);
+		}
+		return response;
 	}
 
 	private void sendFooterQuickReply(String senderId) throws IOException {
