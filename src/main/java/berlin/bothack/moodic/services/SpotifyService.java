@@ -1,7 +1,5 @@
 package berlin.bothack.moodic.services;
 
-import berlin.bothack.moodic.enums.Emotion;
-import berlin.bothack.moodic.enums.Genre;
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.methods.ArtistSearchRequest;
 import com.wrapper.spotify.methods.TrackSearchRequest;
@@ -14,11 +12,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
-
-import static berlin.bothack.moodic.enums.Genre.*;
 
 /**
  * Created by Oleksandr Shchetynin on 11/19/2016.
@@ -29,25 +23,8 @@ public class SpotifyService {
     private static final String SPOTIFY_CLIENT_SECRET = "85ee4f6118b24c0ca3c3711d5f1d3c27";
     private static final String SPOTIFY_REDIRECT_URI = "https://moodic.xonix.info/spotifyWebhook";
     private static final String SPOTIFY_KEY = "spotify";
-    private static final Random random;
-    private static final ConcurrentMap<Emotion, Genre[]> emotionsMap = new ConcurrentHashMap<>();
+    private static final Random random = new Random();
     private final Logger log = LoggerFactory.getLogger(getClass());
-
-    static {
-        random = new Random();
-/*
-        emotionsMap.put(Emotion.ANGER, new Genre[]{ELECTRONICA, METAL, ROCK});
-        emotionsMap.put(Emotion.CONTEMPT, new Genre[]{ELECTRONICA, METAL, ROCK});
-        emotionsMap.put(Emotion.DISGUST, new Genre[]{ELECTRONICA, METAL, ROCK});
-        emotionsMap.put(Emotion.FEAR, new Genre[]{CHIPTUNE, COUNTRY_ROCK, SMOOTH_JAZZ});
-        emotionsMap.put(Emotion.HAPPINESS, new Genre[]{ELECTRONICA, POP, REGGAE, ROCK, SOUL});
-        emotionsMap.put(Emotion.JOYFUL, new Genre[]{ELECTRONICA, FUNK, POP, REGGAE, ROCK});
-        emotionsMap.put(Emotion.NEUTRAL, new Genre[]{BLUES, CLASSICAL, ELECTRONICA, FUNK, METAL, POP, REGGAE, ROCK, SOUL});
-        emotionsMap.put(Emotion.SADNESS, new Genre[]{BLUES, CLASSICAL, ROCK, SOUL});
-        emotionsMap.put(Emotion.SLEEPY, new Genre[]{BLUES, CLASSICAL, JAZZ});
-        emotionsMap.put(Emotion.SURPRISE, new Genre[]{BLUEGRASS, DANCE_PUNK, FUNK, HAPPY_HARDCORE, JUNGLE});
-*/
-    }
 
     private Api setup() {
         return Api.builder()
