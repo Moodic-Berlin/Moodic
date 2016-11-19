@@ -15,9 +15,9 @@ public class Message {
     public String seq;
     public String text;
     @JsonProperty("quick_reply")
-    public QuickReply quickReply;
+    public QuickReply quickReply; // recv
     @JsonProperty("quick_replies")
-    public List<QuickReply> quickReplies;
+    public List<QuickReply> quickReplies;// send
     @JsonProperty("is_echo")
     public String isEcho;
     @JsonProperty("app_id")
