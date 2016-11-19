@@ -12,6 +12,7 @@ public class Messaging {
 	public String timestamp;
 	public Message message;
 	public Delivery delivery;
+	public Postback postback;
 	public Read read;
 
 	public Messaging() {

@@ -146,6 +146,8 @@ public class FacebookController {
 		if(messaging.message != null && messaging.message.quickReply != null && messaging.message.quickReply.payload != null) {
 			return messaging.message.quickReply.payload;
 		}
+		if (messaging.postback != null)
+			return messaging.postback.payload;
 		return null;
 	}
 
@@ -181,11 +183,11 @@ public class FacebookController {
 		}
 	}
 
-	private Response processQuickReply(String senderId, String payload) throws IOException {
-		String genre = logicService.emotionToGenre(payload);
-		log.info("Received following quick reply action: {}, corresponding genre is: {}", payload, genre);
+	private Response processQuickReply(String senderId, String emotion) throws IOException {
+		String genre = logicService.emotionToGenre(emotion);
+		log.info("Received following quick reply action: {}, corresponding genre is: {}", emotion, genre);
 		Track track = spotifyService.randomTrackForGenre(genre);
-		return sendTrack(senderId, track);
+		return sendTrack(senderId, track, emotion);
 	}
 
 	private Response processEmotion(String senderId, String emotion) throws IOException {
@@ -193,7 +195,7 @@ public class FacebookController {
 		log.info("Received following quick reply action: {}, corresponding genre is: {}", emotion, genre);
 		messageSender.send(senderId, "Your emotion is " + emotion);
 		Track track = spotifyService.randomTrackForGenre(genre);
-		return sendTrack(senderId, track);
+		return sendTrack(senderId, track, emotion);
 	}
 
 	private List<String> listenToReplies = Arrays.asList(
@@ -210,17 +212,17 @@ public class FacebookController {
 
 	private static Random random = new Random();
 
-    private Response sendTrack(String senderId, Track track) throws IOException {
+    private Response sendTrack(String senderId, Track track, String emotion) throws IOException {
         messageSender.sendImg(senderId, spotifyService.retrieveSpotifyImage(track));
-        return messageSender.sendBtns(senderId,
-                listenToReplies.get(random.nextInt(listenToReplies.size())) + ": " + track.getArtists().get(0).getName() + " - " + track.getName(),
-                "Open in Spotify",
-                spotifyService.retrieveSpotifyUrl(track),
-                COOL_I_WANT_MORE,
-                COOL_I_WANT_MORE,
-                ANOTHER_ONE_PLEASE,
-                ANOTHER_ONE_PLEASE);
-    }
+		return messageSender.sendBtns(senderId,
+				listenToReplies.get(random.nextInt(listenToReplies.size())) + ": " + track.getArtists().get(0).getName() + " - " + track.getName(),
+				"Open in Spotify",
+				spotifyService.retrieveSpotifyUrl(track),
+				COOL_I_WANT_MORE,
+				emotion,
+				ANOTHER_ONE_PLEASE,
+				"-" + emotion);
+	}
 
     private Response sendFooterQuickReply(String senderId, int offset, int limit) throws IOException {
         QuickReplyBuilder builder = QuickReplyBuilder.builder();
