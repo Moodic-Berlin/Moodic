@@ -8,23 +8,26 @@ import java.util.stream.Collectors;
  * Created by Oleksandr Shchetynin on 11/19/2016.
  */
 public enum Emotion {
-    CLUBBING(false),
+    SURPRISE(false),
     JOYFUL(false),
+    HAPPINESS(false),
+    ROMANTIC(false),
+    NEUTRAL(false),
+    SLEEPY(false),
+
+    SADNESS(false),
+    ANGER(false),
     MAD(false),
+
+    SPORTIVE(false),
+    ROCKING(false),
+    CLUBBING(false),
     RAP(false),
     REGGAE(false),
-    ROCKING(false),
-    ROMANTIC(false),
-    SLEEPY(false),
-    SPORTIVE(false),
-    ANGER(false),
+
     CONTEMPT(true),
     DISGUST(true),
-    FEAR(true),
-    HAPPINESS(false),
-    NEUTRAL(false),
-    SADNESS(false),
-    SURPRISE(false);
+    FEAR(true);
 
     public final boolean isFaceExclusiveEmotion;
 
