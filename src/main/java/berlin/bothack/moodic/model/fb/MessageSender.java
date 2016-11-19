@@ -55,6 +55,12 @@ public class MessageSender {
 		return send(new Recipient(recipientId), message);
 	}
 
+	public Response sendWebBtns(String recipientId, String text, String... titlesUrls) throws IOException {
+		Message message = new Message();
+		message.attachment = Attachment.buttons(text, titlesUrls);
+		return send(new Recipient(recipientId), message);
+	}
+
 	public Response send(String recipientId, String text, QuickReply... replies) throws IOException {
 		return send(recipientId, text, Arrays.asList(replies));
 	}

@@ -19,6 +19,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 /**
  * @author vgorin
@@ -185,9 +188,22 @@ public class FacebookController {
 		return sendTrack(senderId, track);
 	}
 
+	private List<String> listenToReplies = Arrays.asList(
+			"Please listen to",
+			"This could be good for you",
+			"I suggest you",
+			"You might like",
+			"Check this out",
+			"How about",
+			"Good song for you");
+
+	static Random random = new Random();
 	private Response sendTrack(String senderId, Track track) throws IOException {
 		messageSender.sendImg(senderId, spotifyService.retrieveSpotifyImage(track));
-		return messageSender.send(senderId, spotifyService.retrieveSpotifyUrl(track));
+		return messageSender.sendWebBtns(senderId,
+				listenToReplies.get(random.nextInt(listenToReplies.size())) + ": " + track.getArtists().get(0).getName() + " - " + track.getName(),
+				"Open in Spotify",
+				spotifyService.retrieveSpotifyUrl(track));
 	}
 
     private Response sendFooterQuickReply(String senderId) throws IOException {
