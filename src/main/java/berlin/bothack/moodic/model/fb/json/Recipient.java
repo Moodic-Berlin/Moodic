@@ -8,4 +8,11 @@ package berlin.bothack.moodic.model.fb.json;
 
 public class Recipient {
 	public String id;
+
+	public Recipient() {
+	}
+
+	public Recipient(String id) {
+		this.id = id;
+	}
 }

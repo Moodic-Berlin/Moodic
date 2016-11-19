@@ -1,6 +1,10 @@
 package berlin.bothack.moodic.controllers;
 
+import berlin.bothack.moodic.model.fb.MessageSender;
 import berlin.bothack.moodic.model.fb.json.Callback;
+import berlin.bothack.moodic.model.fb.json.Entry;
+import berlin.bothack.moodic.model.fb.json.Messaging;
+import berlin.bothack.moodic.model.fb.json.Response;
 import berlin.bothack.moodic.util.PropertyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +52,21 @@ public class FacebookController {
 	@ResponseBody
 	public String postWebHook(@RequestBody Callback callback) throws Exception {
 		log.info("callback received, {}", callback);
+		for(Entry entry: callback.entry) {
+			for(Messaging messaging: entry.messaging) {
+				String senderId = messaging.sender.id;
+				if(messaging.message != null) {
+					String text = messaging.message.text;
+					Response response = MessageSender.send(senderId, text);
+					if(response != null) {
+						log.info("message {} sent back to {} successfully!", text, senderId);
+					}
+					else {
+						log.warn("error replying back to {}", senderId);
+					}
+				}
+			}
+		}
 		return "";
 	}
 

@@ -9,7 +9,7 @@ package berlin.bothack.moodic.model.fb.json;
 public class Messaging {
 	public Sender sender;
 	public Recipient recipient;
-	public long timestamp;
+	public String timestamp;
 	public Message message;
 	public Delivery delivery;
 	public Read read;

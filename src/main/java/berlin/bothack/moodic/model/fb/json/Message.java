@@ -1,6 +1,6 @@
 package berlin.bothack.moodic.model.fb.json;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author vgorin
@@ -10,10 +10,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class Message {
 	public String mid;
-	public int seq;
+	public String seq;
 	public String text;
-	@SerializedName("quick_reply") public QuickReply quickReply;
-	@SerializedName("is_echo") public boolean isEcho;
-	@SerializedName("app_id") public long appId;
+	@JsonProperty("quick_reply") public QuickReply quickReply;
+	@JsonProperty("is_echo") public String isEcho;
+	@JsonProperty("app_id") public String appId;
 	public String metadata;
+
+	public Message() {
+	}
+
+	public Message(String text) {
+		this.text = text;
+	}
 }
