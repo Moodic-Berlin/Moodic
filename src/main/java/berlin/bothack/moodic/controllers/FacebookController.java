@@ -101,23 +101,29 @@ public class FacebookController {
 		for(Entry entry: callback.entry) {
 			for(Messaging messaging: entry.messaging) {
 				String senderId = messaging.sender.id;
-				String imageUrl = getImageUrl(messaging);
-				String quickReply = getQuickReply(messaging);
-				String text = getTextMessage(messaging);
+				try {
+					String imageUrl = getImageUrl(messaging);
+					String quickReply = getQuickReply(messaging);
+					String text = getTextMessage(messaging);
 
-				if(imageUrl != null) {
-					processImage(senderId, imageUrl);
+					int offset = 0;
+					if (quickReply != null && quickReply.startsWith("+"))
+						offset = Integer.parseInt(quickReply);
+					else {
+						if (imageUrl != null) {
+							processImage(senderId, imageUrl);
+						} else if (quickReply != null) {
+							processQuickReply(senderId, quickReply);
+						} else if (text != null) {
+							processTextMessage(senderId, text);
+						} else {
+							log.info("unknown action for {}", senderId);
+						}
+					}
+					sendFooterQuickReply(senderId, offset, 10);
+				} catch (Exception ex) {
+					messageSender.send(senderId, "Ups, we've got an error \uD83D\uDE1E: " + ex);
 				}
-				else if(quickReply != null) {
-					processQuickReply(senderId, quickReply);
-				}
-				else if(text != null) {
-					processTextMessage(senderId, text);
-				}
-				else {
-					log.info("unknown action for {}", senderId);
-				}
-				sendFooterQuickReply(senderId);
 			}
 		}
 		return "";
@@ -209,15 +215,19 @@ public class FacebookController {
 				spotifyService.retrieveSpotifyUrl(track));
 	}
 
-    private Response sendFooterQuickReply(String senderId) throws IOException {
+    private Response sendFooterQuickReply(String senderId, int offset, int limit) throws IOException {
         QuickReplyBuilder builder = QuickReplyBuilder.builder();
-        int i = 0;
-        for (String emotion : spotifyService.listEmotions()) {
+		List<String> strings = spotifyService.listEmotions();
+		int len = strings.size();
+		int to = offset + limit;
+		boolean stillMoreAvail = to < len;
+		List<String> strings1 = strings.subList(offset, Math.min(len, to));
+		for (String emotion : strings1) {
             builder.addQuickReply(emotion);
-            if (++i >= 11) // TODO improve
-                break;
         }
-        return messageSender.send(senderId, "Hey, how do you feel?", builder.build());
+        if (stillMoreAvail)
+			builder.addQuickReply("MORE", "+" + to);
+        return messageSender.send(senderId, offset == 0 ? "Hey, how do you feel?" : "More emotions for you", builder.build());
     }
 
 	private Response sendNoEmotion(String senderId) throws IOException {
