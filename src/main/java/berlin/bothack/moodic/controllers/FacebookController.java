@@ -19,6 +19,15 @@ public class FacebookController {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	@RequestMapping(
+			value = "/spotifyWebhook",
+			method = RequestMethod.GET,
+			headers = "Accept=plain/text"
+	)
+	public String getSpotifyWebHook() {
+		return "Hey";
+	}
+
+	@RequestMapping(
 			value = "/webhook",
 			method = RequestMethod.GET,
 			params = {"hub.mode", "hub.challenge", "hub.verify_token"},
