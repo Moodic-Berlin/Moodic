@@ -63,7 +63,14 @@ public class MessageSender {
 		log.info("sending a message to {}, message = {}", recipient, message);
 		String jsonPayload = OBJECT_MAPPER.writeValueAsString(new Messaging(recipient, message));
 		log.info("json payload for {} is {}", recipient, jsonPayload);
-		return sendJson(jsonPayload);
+		Response response = sendJson(jsonPayload);
+		if(response != null) {
+			log.info("message {} sent back to {} successfully!", message, recipient);
+		}
+		else {
+			log.warn("error replying back to {}", recipient);
+		}
+		return response;
 	}
 
 	private Response sendJson(String jsonPayload) throws IOException {
