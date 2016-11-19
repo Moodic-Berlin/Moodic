@@ -11,20 +11,30 @@ import java.util.List;
 
 
 public class Message {
-	public String mid;
-	public String seq;
-	public String text;
-	@JsonProperty("quick_reply") public QuickReply quickReply;
-	@JsonProperty("quick_replies")  public List<QuickReply> quickReplies;
-	@JsonProperty("is_echo") public String isEcho;
-	@JsonProperty("app_id") public String appId;
-	public String metadata;
-	public List<Attachment> attachments;
+    public String mid;
+    public String seq;
+    public String text;
+    @JsonProperty("quick_reply")
+    public QuickReply quickReply;
+    @JsonProperty("quick_replies")
+    public List<QuickReply> quickReplies;
+    @JsonProperty("is_echo")
+    public String isEcho;
+    @JsonProperty("app_id")
+    public String appId;
+    public String metadata;
+    public List<Attachment> attachments;// recv
+    public Attachment attachment;       // send
 
-	public Message() {
-	}
+    public Message() {
+    }
 
-	public Message(String text) {
-		this.text = text;
-	}
+    public Message(String text) {
+        this.text = text;
+    }
+
+    public Message(String text, Attachment attachment) {
+        this.text = text;
+        this.attachment = attachment;
+    }
 }

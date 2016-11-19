@@ -4,8 +4,8 @@ import berlin.bothack.moodic.enums.Emotion;
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.methods.ArtistSearchRequest;
 import com.wrapper.spotify.methods.TrackSearchRequest;
+import com.wrapper.spotify.models.Image;
 import com.wrapper.spotify.models.Track;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -46,8 +46,15 @@ public class SpotifyService {
         return urls;
     }
 
-    public String retrieveSpotifyUrl(final Track track) {
+    public String retrieveSpotifyUrl(Track track) {
         return track.getExternalUrls().get(SPOTIFY_KEY);
+    }
+
+    public String retrieveSpotifyImage(Track track) {
+        List<Image> images = track.getAlbum().getImages();
+        if (images.isEmpty())
+            return null;
+        return images.get(0).getUrl();
     }
 
     public Track randomTrackForGenre(String genre) {
