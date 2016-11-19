@@ -6,7 +6,6 @@ import berlin.bothack.moodic.model.fb.json.Entry;
 import berlin.bothack.moodic.model.fb.json.Messaging;
 import berlin.bothack.moodic.model.fb.json.Response;
 import berlin.bothack.moodic.services.SpotifyService;
-import berlin.bothack.moodic.util.Messages;
 import berlin.bothack.moodic.util.PropertyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +22,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class FacebookController {
 	private final Logger log = LoggerFactory.getLogger(getClass());
-	private final Messages messages;
 	private final SpotifyService spotifyService;
 
 	@Autowired
-	public FacebookController(Messages messages, SpotifyService spotifyService) {
-		this.messages = messages;
+	public FacebookController(SpotifyService spotifyService) {
 		this.spotifyService = spotifyService;
 	}
 

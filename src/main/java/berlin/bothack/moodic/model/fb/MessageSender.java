@@ -57,11 +57,11 @@ public class MessageSender {
 		EntityUtils.consume(entity);
 		StatusLine line = httpResponse.getStatusLine();
 		if(line.getStatusCode() == 200) {
-			log.info("{} {}\n{}", line.getStatusCode(), line.getReasonPhrase(), response);
+			log.info("{}\n{}", line, response);
 			return OBJECT_MAPPER.readValue(response, Response.class);
 		}
 		else {
-			log.warn("{} {}\n{}", line.getStatusCode(), line.getReasonPhrase(), response);
+			log.warn("{}\n{}", line, response);
 			return null;
 		}
 	}
