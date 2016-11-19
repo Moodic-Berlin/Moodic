@@ -2,13 +2,17 @@ package berlin.bothack.moodic.controllers;
 
 import berlin.bothack.moodic.Conf;
 import berlin.bothack.moodic.model.fb.MessageSender;
+import berlin.bothack.moodic.model.fb.QuickReplyBuilder;
 import berlin.bothack.moodic.model.fb.json.*;
 import berlin.bothack.moodic.services.SpotifyService;
+import berlin.bothack.moodic.util.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 /**
  * @author vgorin
@@ -22,12 +26,14 @@ public class FacebookController {
 	private final SpotifyService spotifyService;
 	private final Conf conf;
 	private final MessageSender messageSender;
+	private final Messages messages;
 
 	@Autowired
-	public FacebookController(SpotifyService spotifyService, Conf conf, MessageSender messageSender) {
+	public FacebookController(Messages messages, SpotifyService spotifyService, Conf conf, MessageSender messageSender) {
 		this.spotifyService = spotifyService;
 		this.conf = conf;
 		this.messageSender = messageSender;
+		this.messages = messages;
 	}
 
 	@RequestMapping(
@@ -85,6 +91,18 @@ public class FacebookController {
 			}
 		}
 		return "";
+	}
+
+	private void sendFooterQuickReply(String senderId) throws IOException {
+		QuickReplyBuilder builder = QuickReplyBuilder.builder();
+		for (String emotion : spotifyService.listEmotions()) {
+			builder.addQuickReply(emotion);
+		}
+		messageSender.send(senderId, messages.get("dabot.howDoYouFeel"), builder.build());
+	}
+
+	private void sendNoEmotion(String senderId) throws IOException {
+		messageSender.send(senderId, "No Emotion detected, please give it another try!");
 	}
 
 }

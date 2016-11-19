@@ -3,6 +3,7 @@ package berlin.bothack.moodic.util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Locale;
@@ -10,6 +11,7 @@ import java.util.Locale;
 /**
  * Created by Oleksandr Shchetynin on 11/19/2016.
  */
+@Component
 public class Messages {
     @Autowired
     private MessageSource messageSource;
