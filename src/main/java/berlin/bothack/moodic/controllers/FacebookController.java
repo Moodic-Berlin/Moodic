@@ -98,6 +98,7 @@ public class FacebookController {
 				else {
 					log.info("unknown action for {}", senderId);
 				}
+				sendFooterQuickReply(senderId);
 			}
 		}
 		return "";
@@ -149,15 +150,9 @@ public class FacebookController {
 	}
 
 	private Response processQuickReply(String senderId, String payload) throws IOException {
-		// TODO: your custom impl goes here
-		Response response = messageSender.send(senderId, payload);
-		if(response != null) {
-			log.info("message {} sent back to {} successfully!", payload, senderId);
-		}
-		else {
-			log.warn("error replying back to {}", senderId);
-		}
-		return response;
+		String genre = logicService.emotionToGenre(payload);
+		log.info("Received following quick reply action: {}, corresponding genre is: {}", payload, genre);
+		return messageSender.send(senderId, spotifyService.retrieveSpotifyUrl(spotifyService.randomTrackForGenre(genre)));
 	}
 
 	private Response sendFooterQuickReply(String senderId) throws IOException {
