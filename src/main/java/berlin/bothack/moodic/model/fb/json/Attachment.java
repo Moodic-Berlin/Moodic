@@ -9,4 +9,12 @@ package berlin.bothack.moodic.model.fb.json;
 public class Attachment {
 	public String type;
 	public Payload payload;
+
+	public static Attachment image(String imgUrl) {
+		Attachment attachment = new Attachment();
+		attachment.type = "image";
+		attachment.payload = new Payload();
+		attachment.payload.url = imgUrl;
+		return attachment;
+	}
 }

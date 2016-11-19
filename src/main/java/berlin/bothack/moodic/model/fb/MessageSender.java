@@ -45,7 +45,14 @@ public class MessageSender {
 	}
 
 	public Response send(String recipientId, String text) throws IOException {
-		return send(new Recipient(recipientId), new Message(text));
+		Message message = new Message(text);
+		return send(new Recipient(recipientId), message);
+	}
+	public Response sendImg(String recipientId, String imgUrl) throws IOException {
+		if (imgUrl == null)
+			return null;
+		Message message = new Message(null, Attachment.image(imgUrl));
+		return send(new Recipient(recipientId), message);
 	}
 
 	public Response send(String recipientId, String text, QuickReply... replies) throws IOException {

@@ -11,6 +11,7 @@ import berlin.bothack.moodic.services.MicrosoftCognitiveService;
 import berlin.bothack.moodic.services.SpotifyService;
 import berlin.bothack.moodic.services.WatsonConversationService;
 import berlin.bothack.moodic.util.Messages;
+import com.wrapper.spotify.models.Track;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,14 +173,21 @@ public class FacebookController {
 	private Response processQuickReply(String senderId, String payload) throws IOException {
 		String genre = logicService.emotionToGenre(payload);
 		log.info("Received following quick reply action: {}, corresponding genre is: {}", payload, genre);
-		return messageSender.send(senderId, spotifyService.retrieveSpotifyUrl(spotifyService.randomTrackForGenre(genre)));
+		Track track = spotifyService.randomTrackForGenre(genre);
+		return sendTrack(senderId, track);
 	}
 
 	private Response processEmotion(String senderId, String emotion) throws IOException {
 		String genre = logicService.emotionToGenre(emotion);
 		log.info("Received following quick reply action: {}, corresponding genre is: {}", emotion, genre);
 		messageSender.send(senderId, "Your emotion is " + emotion);
-		return messageSender.send(senderId, spotifyService.retrieveSpotifyUrl(spotifyService.randomTrackForGenre(genre)));
+		Track track = spotifyService.randomTrackForGenre(genre);
+		return sendTrack(senderId, track);
+	}
+
+	private Response sendTrack(String senderId, Track track) throws IOException {
+		messageSender.sendImg(senderId, spotifyService.retrieveSpotifyImage(track));
+		return messageSender.send(senderId, spotifyService.retrieveSpotifyUrl(track));
 	}
 
     private Response sendFooterQuickReply(String senderId) throws IOException {
@@ -187,7 +195,7 @@ public class FacebookController {
         int i = 0;
         for (String emotion : spotifyService.listEmotions()) {
             builder.addQuickReply(emotion);
-            if (++i > 10) // TODO improve
+            if (++i >= 11) // TODO improve
                 break;
         }
         return messageSender.send(senderId, "Hey, how do you feel?", builder.build());
