@@ -24,7 +24,7 @@ public class WatsonConversationService {
 
         MessageRequest newMessage = new MessageRequest.Builder().inputText(text).build();
         MessageResponse response = service.message(WORKSPACE_ID, newMessage).execute();
-        Emotion emotion = Emotion.NEUTRAL;
+        Emotion emotion = null;
         if (response.getEntities() != null && response.getEntities().size() > 0) {
             try {
                 emotion = Emotion.of(response.getEntities().get(0).getValue());

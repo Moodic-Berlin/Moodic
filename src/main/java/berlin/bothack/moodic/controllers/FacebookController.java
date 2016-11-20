@@ -170,15 +170,18 @@ public class FacebookController {
         return null;
     }
 
-    private Response processTextMessage(String senderId, String text) throws IOException {
+    private void processTextMessage(String senderId, String text) throws IOException {
         try {
             Emotion emotion = watsonConversationService.retrieveEmotion(text);
-            log.info("text {} converted emotion {}", text, emotion);
-            return processEmotion(senderId, emotion.name(), true);
+            if (emotion != null) {
+                log.info("text {} converted emotion {}", text, emotion);
+                processEmotion(senderId, emotion.name(), true);
+                return;
+            }
         } catch (Exception ex) {
             log.warn("error processing text to emotion/genre: {}", text);
-            return sendNoEmotion(senderId);
         }
+        sendNoEmotion(senderId);
     }
 
     private Response processImage(String senderId, String imageUrl) throws IOException {
@@ -267,7 +270,9 @@ public class FacebookController {
     }
 
     private Response sendNoEmotion(String senderId) throws IOException {
-        return messageSender.send(senderId, "No Emotion detected, please give it another try!");
+        return messageSender.send(senderId,
+                "I'm not sure of your emotion.\n" +
+                "And btw, you can send me your selfie!");
     }
 
 }
