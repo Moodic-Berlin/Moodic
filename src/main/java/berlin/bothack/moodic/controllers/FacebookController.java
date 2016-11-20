@@ -2,14 +2,13 @@ package berlin.bothack.moodic.controllers;
 
 import berlin.bothack.moodic.Conf;
 import berlin.bothack.moodic.enums.Emotion;
+import berlin.bothack.moodic.model.eventful.Concert;
+import berlin.bothack.moodic.model.eventful.EventfulDTO;
 import berlin.bothack.moodic.model.fb.MessageSender;
 import berlin.bothack.moodic.model.fb.QuickReplyBuilder;
 import berlin.bothack.moodic.model.fb.json.*;
 import berlin.bothack.moodic.model.microsoft.cognitive.EmotionResponse;
-import berlin.bothack.moodic.services.EmotionAnalysisService;
-import berlin.bothack.moodic.services.MicrosoftCognitiveService;
-import berlin.bothack.moodic.services.SpotifyService;
-import berlin.bothack.moodic.services.WatsonConversationService;
+import berlin.bothack.moodic.services.*;
 import berlin.bothack.moodic.util.Messages;
 import com.wrapper.spotify.models.Track;
 import org.apache.commons.lang.StringUtils;
@@ -38,6 +37,7 @@ public class FacebookController {
     private final MicrosoftCognitiveService microsoftCognitiveService;
     private final WatsonConversationService watsonConversationService;
     private final EmotionAnalysisService emotionAnalysisService;
+    private final EventfulService eventfulService;
 
     @Autowired
     public FacebookController(
@@ -47,7 +47,8 @@ public class FacebookController {
             MessageSender messageSender,
             MicrosoftCognitiveService microsoftCognitiveService,
             WatsonConversationService watsonConversationService,
-            EmotionAnalysisService emotionAnalysisService
+            EmotionAnalysisService emotionAnalysisService,
+            EventfulService eventfulService
     ) {
         this.spotifyService = spotifyService;
         this.conf = conf;
@@ -56,6 +57,7 @@ public class FacebookController {
         this.microsoftCognitiveService = microsoftCognitiveService;
         this.watsonConversationService = watsonConversationService;
         this.emotionAnalysisService = emotionAnalysisService;
+        this.eventfulService = eventfulService;
     }
 
     @RequestMapping(
@@ -217,8 +219,24 @@ public class FacebookController {
             genre = emotionAnalysisService.anyGenreInEmotionExcept(Emotion.of(emotion), excludeGenres);
             log.info("Derived genre: {}/{}", emotion, genre);
         }
-        Track track = spotifyService.randomTrackForGenre(genre);
-        return sendTrack(senderId, track, emotion, genre, excludeGenres);
+        if (random.nextInt(5) > 1) {
+            Track track = spotifyService.randomTrackForGenre(genre);
+            return sendTrack(senderId, track, emotion, genre, excludeGenres);
+        } else {
+            try {
+                EventfulDTO eventfulDTO = spotifyService.commercialTrackForGenre(genre);
+                sendTrack(senderId, eventfulDTO.getTrack(), emotion, genre, excludeGenres);
+                return sendConcertLink(senderId, eventfulDTO.getConcert());
+            } catch (Exception e) {
+                Track track = spotifyService.randomTrackForGenre(genre);
+                return sendTrack(senderId, track, emotion, genre, excludeGenres);
+            }
+
+        }
+    }
+
+    private Response sendConcertLink(String senderId, Concert concert) throws IOException {
+        return messageSender.sendBtns(senderId, "Check-out concert", concert.getTitle(), concert.getUrl());
     }
 
     private List<String> listenToReplies = Arrays.asList(
@@ -284,5 +302,4 @@ public class FacebookController {
                 "I'm not sure of your emotion.\n" +
                 "And btw, you can send me your selfie!");
     }
-
 }

@@ -1,5 +1,9 @@
 package berlin.bothack.moodic.services;
 
+import berlin.bothack.moodic.model.eventful.Concert;
+import berlin.bothack.moodic.model.eventful.EventfulDTO;
+import com.evdb.javaapi.EVDBAPIException;
+import com.evdb.javaapi.EVDBRuntimeException;
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.methods.ArtistSearchRequest;
 import com.wrapper.spotify.methods.TopTracksRequest;
@@ -9,6 +13,7 @@ import com.wrapper.spotify.models.Image;
 import com.wrapper.spotify.models.Track;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashSet;
@@ -28,6 +33,8 @@ public class SpotifyService {
     private static final String SPOTIFY_KEY = "spotify";
     private static final Random random = new Random();
     private final Logger log = LoggerFactory.getLogger(getClass());
+    @Autowired
+    private EventfulService eventfulService;
 
     private Api setup() {
         return Api.builder()
@@ -60,6 +67,16 @@ public class SpotifyService {
     public Track randomTrackForGenre(String genre) {
         List<Track> tracks = searchTracksByGenre(genre);
         return tracks.get(random.nextInt(tracks.size()));
+    }
+
+    public EventfulDTO commercialTrackForGenre(String genre) throws EVDBRuntimeException, EVDBAPIException {
+        EventfulDTO eventfulDTO = new EventfulDTO();
+        Concert concert = null;
+        concert = eventfulService.searchConcert(genre);
+        eventfulDTO.setConcert(concert);
+        Artist artist = searchArtist(concert.getTitle());
+        eventfulDTO.setTrack(findTopTrack(artist.getId()));
+        return eventfulDTO;
     }
 
     public List<Track> searchTracksByGenre(String genre) {
@@ -111,7 +128,6 @@ public class SpotifyService {
         }
         return null;
     }
-
 
 
     private String buildGenresQuery(String... genres) {
