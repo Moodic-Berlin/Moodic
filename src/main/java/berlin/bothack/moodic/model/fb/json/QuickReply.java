@@ -33,7 +33,7 @@ public class QuickReply {
 		this.payload = payload;
 		String imgTitle = StringUtils.capitalize(title.toLowerCase()) + ".png";
 		InputStream imgStream = QuickReply.class.getResourceAsStream("/static/" + imgTitle);
-		String domain = WebUtil.getRequestDomain();
+		String domain = WebUtil.getRequestDomain(true);
 		if (imgStream != null && domain != null) {
 			imageUrl = domain + "/" + imgTitle;
 		}

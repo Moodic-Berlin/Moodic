@@ -11,11 +11,11 @@ public final class WebUtil {
                 .getRequest();
     }
 
-    public static String getRequestDomain() {
+    public static String getRequestDomain(boolean forceHttps) {
         HttpServletRequest request = getRequest();
         if (request == null)
             return null;
-        return request.getScheme() + "://" +   // "http" + "://
+        return (forceHttps ? "https" : request.getScheme()) + "://" +   // "http" + "://
                 request.getServerName() +       // "myhost"
                 ":" + request.getServerPort();
     }
