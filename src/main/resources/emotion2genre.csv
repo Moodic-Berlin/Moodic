@@ -19,26 +19,27 @@ Rock,Mad,0.91,0.92
 Techno,Mad,0.92,0.96
 Thrash Metal,Mad,0.96,1.00
 Alternative Metal,anger,0.00,0.03
-Black Metal,anger,0.03,0.05
-Breakbeat,anger,0.05,0.11
-Crunk,anger,0.11,0.12
-Doom Metal,anger,0.12,0.14
-Drum and Bass,anger,0.14,0.22
-Dubstep,anger,0.22,0.30
-Garage Rock,anger,0.30,0.36
-Gothic Rock,anger,0.36,0.42
-Hardcore,anger,0.42,0.45
-Hyphy,anger,0.45,0.46
-Industrial Metal,anger,0.46,0.48
-Metal,anger,0.48,0.60
-Nerdcore,anger,0.60,0.65
-Nu Metal,anger,0.65,0.69
-Power Metal,anger,0.69,0.71
-Progressive Metal,anger,0.71,0.73
-Punk,anger,0.73,0.78
-Rap-Metal,anger,0.78,0.80
-Rock,anger,0.80,0.83
-Techno,anger,0.83,0.98
+Big Beat,anger,0.03,0.09
+Black Metal,anger,0.09,0.11
+Breakbeat,anger,0.11,0.17
+Crunk,anger,0.17,0.18
+Doom Metal,anger,0.18,0.20
+Drum and Bass,anger,0.20,0.28
+Dubstep,anger,0.28,0.36
+Garage Rock,anger,0.36,0.42
+Gothic Rock,anger,0.42,0.48
+Hardcore,anger,0.48,0.51
+Hyphy,anger,0.51,0.52
+Industrial Metal,anger,0.52,0.54
+Metal,anger,0.54,0.66
+Nerdcore,anger,0.66,0.71
+Nu Metal,anger,0.71,0.75
+Power Metal,anger,0.75,0.77
+Progressive Metal,anger,0.77,0.79
+Punk,anger,0.79,0.84
+Rap-Metal,anger,0.84,0.86
+Rock,anger,0.86,0.89
+Techno,anger,0.89,0.98
 Thrash Metal,anger,0.98,1.00
 Acid Jazz,sadness,0.00,0.01
 Acoustic Blues,sadness,0.01,0.04
@@ -71,28 +72,26 @@ Swing,sadness,0.99,1.00
 Acid Jazz,Sleepy,0.00,0.01
 Acoustic Blues,Sleepy,0.01,0.05
 Alternative Country,Sleepy,0.05,0.08
-Ambient,Sleepy,0.08,0.15
-Bebop,Sleepy,0.15,0.16
-Blues,Sleepy,0.16,0.26
-Bossa Nova,Sleepy,0.26,0.29
-Cajun,Sleepy,0.29,0.32
-Classical,Sleepy,0.32,0.39
-Country Swing,Sleepy,0.39,0.42
-Emo,Sleepy,0.42,0.45
-Experimental,Sleepy,0.45,0.49
+Ambient,Sleepy,0.08,0.17
+Bebop,Sleepy,0.17,0.18
+Blues,Sleepy,0.18,0.30
+Bossa Nova,Sleepy,0.30,0.33
+Cajun,Sleepy,0.33,0.36
+Classical,Sleepy,0.36,0.43
+Country Swing,Sleepy,0.43,0.46
+Emo,Sleepy,0.46,0.49
 Free Jazz,Sleepy,0.49,0.50
-Jazz,Sleepy,0.50,0.60
-Jazz Fusion,Sleepy,0.60,0.61
-Jump Blues,Sleepy,0.61,0.65
-Mariachi,Sleepy,0.65,0.68
-Merengue,Sleepy,0.68,0.71
-Native American,Sleepy,0.71,0.73
-Neo-Soul,Sleepy,0.73,0.76
-New Age,Sleepy,0.76,0.78
-Samba,Sleepy,0.78,0.81
-Shoegaze,Sleepy,0.81,0.85
-Smooth Jazz,Sleepy,0.85,0.86
-Soul,Sleepy,0.86,0.96
+Jazz,Sleepy,0.50,0.62
+Jazz Fusion,Sleepy,0.62,0.63
+Jump Blues,Sleepy,0.63,0.67
+Mariachi,Sleepy,0.67,0.70
+Merengue,Sleepy,0.70,0.73
+Native American,Sleepy,0.73,0.75
+Neo-Soul,Sleepy,0.75,0.78
+New Age,Sleepy,0.78,0.80
+Samba,Sleepy,0.80,0.83
+Smooth Jazz,Sleepy,0.83,0.84
+Soul,Sleepy,0.84,0.96
 Swing,Sleepy,0.96,0.97
 Tango,Sleepy,0.97,1.00
 Alternative Country,neutral,0.00,0.03
@@ -264,33 +263,34 @@ Electronic,happiness,0.29,0.35
 Electronica,happiness,0.35,0.36
 Euro Pop,happiness,0.36,0.38
 Flamenco,happiness,0.38,0.40
-Folk,happiness,0.40,0.44
-Folk Rock,happiness,0.44,0.45
-Funk,happiness,0.45,0.46
-Gospel,happiness,0.46,0.47
-Grime,happiness,0.47,0.49
-Grunge,happiness,0.49,0.52
-Happy Hardcore,happiness,0.52,0.54
-House,happiness,0.54,0.55
-Jazz,happiness,0.55,0.56
-J-Pop,happiness,0.56,0.58
-Jungle,happiness,0.58,0.59
-Latin,happiness,0.59,0.60
-Latin Jazz,happiness,0.60,0.62
-Mariachi,happiness,0.62,0.63
-Merengue,happiness,0.63,0.64
-Miami Bass,happiness,0.64,0.65
-Neo-Soul,happiness,0.65,0.66
-Nu Jazz,happiness,0.66,0.67
-Pop,happiness,0.67,0.72
-Pop Rock,happiness,0.72,0.73
-Power Pop,happiness,0.73,0.74
-Punk,happiness,0.74,0.76
-Reggae,happiness,0.76,0.82
-Reggaeton,happiness,0.82,0.83
-Rock,happiness,0.83,0.88
-Rock En Espanol,happiness,0.88,0.91
-Salsa,happiness,0.91,0.93
+Folk,happiness,0.40,0.43
+Folk Rock,happiness,0.43,0.44
+Funk,happiness,0.44,0.45
+Gospel,happiness,0.45,0.46
+Grime,happiness,0.46,0.48
+Grunge,happiness,0.48,0.51
+Happy Hardcore,happiness,0.51,0.53
+House,happiness,0.53,0.54
+Jazz,happiness,0.54,0.55
+J-Pop,happiness,0.55,0.57
+Jungle,happiness,0.57,0.58
+Latin,happiness,0.58,0.59
+Latin Jazz,happiness,0.59,0.61
+Mariachi,happiness,0.61,0.62
+Merengue,happiness,0.62,0.63
+Miami Bass,happiness,0.63,0.64
+Neo-Soul,happiness,0.64,0.65
+Nu Jazz,happiness,0.65,0.66
+Pop,happiness,0.66,0.71
+Pop Rock,happiness,0.71,0.72
+Power Pop,happiness,0.72,0.73
+Punk,happiness,0.73,0.75
+Reggae,happiness,0.75,0.81
+Reggaeton,happiness,0.81,0.82
+Rock,happiness,0.82,0.87
+Rock En Espanol,happiness,0.87,0.90
+Salsa,happiness,0.90,0.92
+Shoegaze,happiness,0.92,0.93
 Ska,happiness,0.93,0.94
 Southern Rock,happiness,0.94,0.97
 Swing,happiness,0.97,0.98

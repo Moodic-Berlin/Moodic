@@ -230,7 +230,7 @@ public class FacebookController {
             "How about",
             "Good song for you",
             "Hope you'll like this artist",
-            "What about this album",
+            "What about this",
             "Hope it will fit your mood");
 
     private static Random random = new Random();
