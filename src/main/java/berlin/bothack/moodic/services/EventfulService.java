@@ -8,9 +8,13 @@ import com.evdb.javaapi.data.Event;
 import com.evdb.javaapi.data.SearchResult;
 import com.evdb.javaapi.data.request.EventSearchRequest;
 import com.evdb.javaapi.operations.EventOperations;
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Oleksandr Shchetynin on 11/19/2016.
@@ -21,10 +25,26 @@ public class EventfulService {
     private static final String apiKey = "pMcpkZD9DfnFF8D7";
     private static final String user = "vladg";
     private static final String pwd = "16fZThvWN3";
+
     static {
         APIConfiguration.setApiKey(apiKey);
         APIConfiguration.setEvdbUser(user);
         APIConfiguration.setEvdbPassword(pwd);
+    }
+
+    private static Map<String, String> moodic2EventfulGenres = new HashMap<>();
+
+    static {
+        try {
+            String content = IOUtils.toString(EmotionAnalysisService.class.getResourceAsStream("/moodic2EventfulGenres.csv"), "UTF-8");
+            String[] rows = content.split("\n");
+            for (String row : rows) {
+                String[] parts = row.split(",");
+                moodic2EventfulGenres.put(parts[0], parts[1]);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Concert searchConcert(String spotifyGenre) throws EVDBRuntimeException, EVDBAPIException {
@@ -58,8 +78,7 @@ public class EventfulService {
         return concert;
     }
 
-    private String convertToEventfulGenre(String before) {
-        // TODO implement conversion based on CSV
-        return "music_" + before.toLowerCase();
+    private String convertToEventfulGenre(String moodicGenre) {
+        return moodic2EventfulGenres.get(moodicGenre);
     }
 }
