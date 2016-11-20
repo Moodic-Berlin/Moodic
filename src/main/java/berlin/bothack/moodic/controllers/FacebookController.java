@@ -243,7 +243,7 @@ public class FacebookController {
                 COOL_I_WANT_MORE,
                 emotion + "/" + genre));
 
-        if (!newExcludeGenres.isEmpty())
+        if (emotionAnalysisService.anyGenreInEmotionExcept(Emotion.of(emotion), newExcludeGenres) != null)
             buttons.addAll(Arrays.asList(ANOTHER_ONE_PLEASE, emotion + "/" + "-" + StringUtils.join(newExcludeGenres, ",")));
 
         return messageSender.sendBtns(senderId,
