@@ -115,7 +115,7 @@ public class FacebookController {
 						if (imageUrl != null) {
 							processImage(senderId, imageUrl);
 						} else if (quickReply != null) {
-							processQuickReply(senderId, quickReply);
+							processEmotion(senderId, quickReply, false);
 						} else if (text != null) {
 							processTextMessage(senderId, text);
 						} else {
@@ -162,7 +162,7 @@ public class FacebookController {
 		try {
 			Emotion emotion = watsonConversationService.retrieveEmotion(text);
 			log.info("text {} converted emotion {}", text, emotion);
-			return processEmotion(senderId, emotion.name());
+			return processEmotion(senderId, emotion.name(), true);
 		}
 		catch (Exception ex) {
 			log.warn("error processing text to emotion/genre: {}", text);
@@ -175,7 +175,7 @@ public class FacebookController {
 			EmotionResponse emotionResponse = microsoftCognitiveService.retrieveEmotion(imageUrl);
 			log.info("Emotion Response is {}", emotionResponse);
 			Emotion emotion = microsoftCognitiveService.getMostLikableEmotion(emotionResponse);
-			return processEmotion(senderId, emotion.name());
+			return processEmotion(senderId, emotion.name(), true);
 		}
 		catch (Exception ex) {
 			log.warn("error processing image to emotion/genre: {}", imageUrl);
@@ -183,17 +183,11 @@ public class FacebookController {
 		}
 	}
 
-	private Response processQuickReply(String senderId, String emotion) throws IOException {
+	private Response processEmotion(String senderId, String emotion, boolean sendEmotion) throws IOException {
 		String genre = logicService.emotionToGenre(emotion);
-		log.info("Received following quick reply action: {}, corresponding genre is: {}", emotion, genre);
-		Track track = spotifyService.randomTrackForGenre(genre);
-		return sendTrack(senderId, track, emotion);
-	}
-
-	private Response processEmotion(String senderId, String emotion) throws IOException {
-		String genre = logicService.emotionToGenre(emotion);
-		log.info("Received following quick reply action: {}, corresponding genre is: {}", emotion, genre);
-		messageSender.send(senderId, "Your emotion is " + emotion);
+		log.info("Received emotion: {}, corresponding genre is: {}", emotion, genre);
+		if (sendEmotion)
+			messageSender.send(senderId, "Your emotion is " + emotion);
 		Track track = spotifyService.randomTrackForGenre(genre);
 		return sendTrack(senderId, track, emotion);
 	}
