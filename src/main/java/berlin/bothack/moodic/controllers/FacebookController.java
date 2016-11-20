@@ -219,7 +219,7 @@ public class FacebookController {
             genre = emotionAnalysisService.anyGenreInEmotionExcept(Emotion.of(emotion), excludeGenres);
             log.info("Derived genre: {}/{}", emotion, genre);
         }
-        if (random.nextInt(5) > 1) {
+        if (random.nextInt(100) > 20) {
             Track track = spotifyService.randomTrackForGenre(genre);
             return sendTrack(senderId, track, emotion, genre, excludeGenres);
         } else {
