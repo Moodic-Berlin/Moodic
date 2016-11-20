@@ -105,17 +105,20 @@ public class FacebookController {
 				String senderId = messaging.sender.id;
 				try {
 					String imageUrl = getImageUrl(messaging);
-					String quickReply = getQuickReply(messaging);
+					String emotion = getQuickReply(messaging);
+					String genre = getPostback(messaging);
 					String text = getTextMessage(messaging);
 
 					int offset = 0;
-					if (quickReply != null && quickReply.startsWith("+"))
-						offset = Integer.parseInt(quickReply);
+					if (emotion != null && emotion.startsWith("+"))
+						offset = Integer.parseInt(emotion);
 					else {
 						if (imageUrl != null) {
 							processImage(senderId, imageUrl);
-						} else if (quickReply != null) {
-							processEmotion(senderId, quickReply, false);
+						} else if (emotion != null) {
+							processEmotion(senderId, emotion, false);
+						} else if (genre != null) {
+							processGenre(senderId, genre);
 						} else if (text != null) {
 							processTextMessage(senderId, text);
 						} else {
@@ -143,9 +146,11 @@ public class FacebookController {
 	}
 
 	private String getQuickReply(Messaging messaging) {
-		if(messaging.message != null && messaging.message.quickReply != null && messaging.message.quickReply.payload != null) {
+		if(messaging.message != null && messaging.message.quickReply != null && messaging.message.quickReply.payload != null)
 			return messaging.message.quickReply.payload;
-		}
+		return null;
+	}
+	private String getPostback(Messaging messaging) {
 		if (messaging.postback != null)
 			return messaging.postback.payload;
 		return null;
@@ -189,7 +194,13 @@ public class FacebookController {
 		if (sendEmotion)
 			messageSender.send(senderId, "Your emotion is " + emotion);
 		Track track = spotifyService.randomTrackForGenre(genre);
-		return sendTrack(senderId, track, emotion);
+		return sendTrack(senderId, track, genre);
+	}
+
+	private Response processGenre(String senderId, String genre) throws IOException {
+		log.info("Received genre: {}", genre);
+		Track track = spotifyService.randomTrackForGenre(genre);
+		return sendTrack(senderId, track, genre);
 	}
 
 	private List<String> listenToReplies = Arrays.asList(
@@ -206,16 +217,16 @@ public class FacebookController {
 
 	private static Random random = new Random();
 
-    private Response sendTrack(String senderId, Track track, String emotion) throws IOException {
+    private Response sendTrack(String senderId, Track track, String genre) throws IOException {
         messageSender.sendImg(senderId, spotifyService.retrieveSpotifyImage(track));
 		return messageSender.sendBtns(senderId,
 				listenToReplies.get(random.nextInt(listenToReplies.size())) + ": " + track.getArtists().get(0).getName() + " - " + track.getName(),
 				"Open in Spotify",
 				spotifyService.retrieveSpotifyUrl(track),
 				COOL_I_WANT_MORE,
-				emotion,
+				genre,
 				ANOTHER_ONE_PLEASE,
-				"-" + emotion);
+				"-" + genre);
 	}
 
     private Response sendFooterQuickReply(String senderId, int offset, int limit) throws IOException {
