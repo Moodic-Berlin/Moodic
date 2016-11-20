@@ -11,7 +11,7 @@ public class EvdbTests {
     @Test
     public void test1() throws EVDBRuntimeException, EVDBAPIException {
         EventfulService eventfulService = new EventfulService();
-        SpotifyService spotifyService = new SpotifyService();
+        SpotifyService spotifyService = new SpotifyService(eventfulService);
         Concert concert = eventfulService.searchConcert("country");
 
         System.out.println(concert);

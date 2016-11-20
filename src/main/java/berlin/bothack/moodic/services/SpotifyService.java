@@ -33,8 +33,12 @@ public class SpotifyService {
     private static final String SPOTIFY_KEY = "spotify";
     private static final Random random = new Random();
     private final Logger log = LoggerFactory.getLogger(getClass());
+    private final EventfulService eventfulService;
+
     @Autowired
-    private EventfulService eventfulService;
+    public SpotifyService(EventfulService eventfulService) {
+        this.eventfulService = eventfulService;
+    }
 
     private Api setup() {
         return Api.builder()
@@ -71,8 +75,7 @@ public class SpotifyService {
 
     public EventfulDTO commercialTrackForGenre(String genre) throws EVDBRuntimeException, EVDBAPIException {
         EventfulDTO eventfulDTO = new EventfulDTO();
-        Concert concert = null;
-        concert = eventfulService.searchConcert(genre);
+        Concert concert = eventfulService.searchConcert(genre);
         eventfulDTO.setConcert(concert);
         Artist artist = searchArtist(concert.getTitle());
         eventfulDTO.setTrack(findTopTrack(artist.getId()));

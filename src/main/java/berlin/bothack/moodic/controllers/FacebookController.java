@@ -211,7 +211,7 @@ public class FacebookController {
         return sendTrack(senderId, track, emotion, genre, Collections.emptySet());
     }
 
-    private Response processGenre(String senderId, String emotion, String genre) throws IOException {
+    private void processGenre(String senderId, String emotion, String genre) throws IOException {
         log.info("Received genre: {}/{}", emotion, genre);
         Set<String> excludeGenres = new HashSet<>();
         if (genre.startsWith("-")) {
@@ -219,19 +219,22 @@ public class FacebookController {
             genre = emotionAnalysisService.anyGenreInEmotionExcept(Emotion.of(emotion), excludeGenres);
             log.info("Derived genre: {}/{}", emotion, genre);
         }
-        if (random.nextInt(100) > 20) {
+        if (false && random.nextInt(100) > 20) {
             Track track = spotifyService.randomTrackForGenre(genre);
-            return sendTrack(senderId, track, emotion, genre, excludeGenres);
+            sendTrack(senderId, track, emotion, genre, excludeGenres);
         } else {
             try {
                 EventfulDTO eventfulDTO = spotifyService.commercialTrackForGenre(genre);
-                sendTrack(senderId, eventfulDTO.getTrack(), emotion, genre, excludeGenres);
-                return sendConcertLink(senderId, eventfulDTO.getConcert());
+                if (eventfulDTO != null) {
+                    sendTrack(senderId, eventfulDTO.getTrack(), emotion, genre, excludeGenres);
+                    sendConcertLink(senderId, eventfulDTO.getConcert());
+                    return;
+                }
             } catch (Exception e) {
-                Track track = spotifyService.randomTrackForGenre(genre);
-                return sendTrack(senderId, track, emotion, genre, excludeGenres);
+                log.error("", e);
             }
-
+            Track track = spotifyService.randomTrackForGenre(genre);
+            sendTrack(senderId, track, emotion, genre, excludeGenres);
         }
     }
 
