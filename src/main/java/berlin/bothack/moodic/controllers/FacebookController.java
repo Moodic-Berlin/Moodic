@@ -251,7 +251,7 @@ public class FacebookController {
                 emotion + "/" + genre));
 
         if (emotionAnalysisService.anyGenreInEmotionExcept(Emotion.of(emotion), newExcludeGenres) != null)
-            buttons.addAll(Arrays.asList("Another one, please", emotion + "/" + "-" + StringUtils.join(newExcludeGenres, ",")));
+            buttons.addAll(Arrays.asList("Something else, pls", emotion + "/" + "-" + StringUtils.join(newExcludeGenres, ",")));
 
         return messageSender.sendBtns(senderId,
                 listenToReplies.get(random.nextInt(listenToReplies.size())) + ": " + track.getArtists().get(0).getName() + " - " + track.getName(),
