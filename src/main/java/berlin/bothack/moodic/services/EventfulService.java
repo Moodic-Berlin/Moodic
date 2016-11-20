@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by Oleksandr Shchetynin on 11/19/2016.
@@ -25,6 +26,7 @@ public class EventfulService {
     private static final String apiKey = "pMcpkZD9DfnFF8D7";
     private static final String user = "vladg";
     private static final String pwd = "16fZThvWN3";
+    private static Random random = new Random();
 
     static {
         APIConfiguration.setApiKey(apiKey);
@@ -73,8 +75,9 @@ public class EventfulService {
         if (events == null || events.size() == 0) {
             return null;
         }
-        concert.setTitle(events.get(0).getTitle());
-        concert.setUrl(events.get(0).getURL());
+        Event event = events.get(random.nextInt(events.size()));
+        concert.setTitle(event.getTitle());
+        concert.setUrl(event.getURL());
         return concert;
     }
 

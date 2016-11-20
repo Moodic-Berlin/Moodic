@@ -219,7 +219,7 @@ public class FacebookController {
             genre = emotionAnalysisService.anyGenreInEmotionExcept(Emotion.of(emotion), excludeGenres);
             log.info("Derived genre: {}/{}", emotion, genre);
         }
-        if (false && random.nextInt(100) > 20) {
+        if (random.nextInt(100) > 30) {
             Track track = spotifyService.randomTrackForGenre(genre);
             sendTrack(senderId, track, emotion, genre, excludeGenres);
         } else {
@@ -239,7 +239,10 @@ public class FacebookController {
     }
 
     private Response sendConcertLink(String senderId, Concert concert) throws IOException {
-        return messageSender.sendBtns(senderId, "Check-out concert", concert.getTitle(), concert.getUrl());
+        return messageSender.sendBtns(senderId,
+                "You might want to visit a concert of \"" + concert.getTitle() +"\" that will take place soon in Berlin",
+                "Open in Eventful",
+                concert.getUrl());
     }
 
     private List<String> listenToReplies = Arrays.asList(
