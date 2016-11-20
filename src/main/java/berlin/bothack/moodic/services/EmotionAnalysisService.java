@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-public class LogicService {
+public class EmotionAnalysisService {
     private static class EmotionGenreRow {
         final Emotion emotion;
         final String genre;
@@ -31,7 +31,7 @@ public class LogicService {
     private static List<EmotionGenreRow> parseEmotion2Genre() {
         String content = null;
         try {
-            content = IOUtils.toString(LogicService.class.getResourceAsStream("/emotion2genre.csv"), "UTF-8");
+            content = IOUtils.toString(EmotionAnalysisService.class.getResourceAsStream("/emotion2genre.csv"), "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
         }

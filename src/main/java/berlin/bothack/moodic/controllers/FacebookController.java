@@ -6,7 +6,7 @@ import berlin.bothack.moodic.model.fb.MessageSender;
 import berlin.bothack.moodic.model.fb.QuickReplyBuilder;
 import berlin.bothack.moodic.model.fb.json.*;
 import berlin.bothack.moodic.model.microsoft.cognitive.EmotionResponse;
-import berlin.bothack.moodic.services.LogicService;
+import berlin.bothack.moodic.services.EmotionAnalysisService;
 import berlin.bothack.moodic.services.MicrosoftCognitiveService;
 import berlin.bothack.moodic.services.SpotifyService;
 import berlin.bothack.moodic.services.WatsonConversationService;
@@ -40,7 +40,7 @@ public class FacebookController {
 	private final Messages messages;
 	private final MicrosoftCognitiveService microsoftCognitiveService;
 	private final WatsonConversationService watsonConversationService;
-	private final LogicService logicService;
+	private final EmotionAnalysisService emotionAnalysisService;
 
 	@Autowired
 	public FacebookController(
@@ -50,7 +50,7 @@ public class FacebookController {
 			MessageSender messageSender,
 			MicrosoftCognitiveService microsoftCognitiveService,
 			WatsonConversationService watsonConversationService,
-			LogicService logicService
+			EmotionAnalysisService emotionAnalysisService
 	) {
 		this.spotifyService = spotifyService;
 		this.conf = conf;
@@ -58,7 +58,7 @@ public class FacebookController {
 		this.messages = messages;
 		this.microsoftCognitiveService = microsoftCognitiveService;
 		this.watsonConversationService = watsonConversationService;
-		this.logicService = logicService;
+		this.emotionAnalysisService = emotionAnalysisService;
 	}
 
 	@RequestMapping(
@@ -189,7 +189,7 @@ public class FacebookController {
 	}
 
 	private Response processEmotion(String senderId, String emotion, boolean sendEmotion) throws IOException {
-		String genre = logicService.emotionToGenre(emotion);
+		String genre = emotionAnalysisService.emotionToGenre(emotion);
 		log.info("Received emotion: {}, corresponding genre is: {}", emotion, genre);
 		if (sendEmotion)
 			messageSender.send(senderId, "Your emotion is " + emotion);

@@ -6,9 +6,9 @@ import org.junit.Test;
 public class LogicServiceTests {
     @Test
     public void test1() {
-        LogicService logicService = new LogicService();
-        System.out.println(logicService.emotionToGenre(Emotion.ANGER));
-        System.out.println(logicService.emotionToGenre(Emotion.HAPPINESS));
-        System.out.println(logicService.emotionToGenre(Emotion.SLEEPY));
+        EmotionAnalysisService emotionAnalysisService = new EmotionAnalysisService();
+        System.out.println(emotionAnalysisService.emotionToGenre(Emotion.ANGER));
+        System.out.println(emotionAnalysisService.emotionToGenre(Emotion.HAPPINESS));
+        System.out.println(emotionAnalysisService.emotionToGenre(Emotion.SLEEPY));
     }
 }
