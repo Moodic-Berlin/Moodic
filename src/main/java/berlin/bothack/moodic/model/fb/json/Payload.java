@@ -15,5 +15,4 @@ public class Payload {
 	@JsonProperty("template_type") public String templateType;
 	public String text;
 	public List<Button> buttons;
-	public List<Coordinate> coordinates;
 }
