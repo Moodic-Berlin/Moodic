@@ -18,7 +18,7 @@ public class EmotionAnalysisService {
         public EmotionGenreRow(String row) {
             String[] parts = row.split(",");
             genre = parts[0];
-            emotion = Emotion.valueOf(parts[1].toUpperCase());
+            emotion = Emotion.of(parts[1]);
             low = Double.parseDouble(parts[2]);
             high = Double.parseDouble(parts[3]);
         }
@@ -57,15 +57,19 @@ public class EmotionAnalysisService {
     }
 
     public String emotionToGenre(String emotion) {
-        return emotionToGenre(Emotion.valueOf(emotion.toUpperCase()));
+        return emotionToGenre(Emotion.of(emotion));
     }
 
-    public String anyGenreExcept(Set<String> excludeGenres) {
-        HashSet set = new HashSet<>(genres);
-        set.removeAll(excludeGenres);
-        if (set.isEmpty())
+    public String anyGenreInEmotionExcept(Emotion emotion, Set<String> excludeGenres) {
+        Set<String> genresOfEmotion = new HashSet<>();
+        for (EmotionGenreRow row : emotionGenreRows) {
+            if (row.emotion == emotion)
+                genresOfEmotion.add(row.genre);
+        }
+        genresOfEmotion.removeAll(excludeGenres);
+        if (genresOfEmotion.isEmpty())
             return null;
-        List<String> l = new ArrayList<>(set);
+        List<String> l = new ArrayList<>(genresOfEmotion);
         Collections.shuffle(l);
         return l.get(0);
     }

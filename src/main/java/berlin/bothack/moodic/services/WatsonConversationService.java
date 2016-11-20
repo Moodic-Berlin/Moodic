@@ -27,7 +27,7 @@ public class WatsonConversationService {
         Emotion emotion = Emotion.NEUTRAL;
         if (response.getEntities() != null && response.getEntities().size() > 0) {
             try {
-                emotion = Emotion.valueOf(response.getEntities().get(0).getValue().toUpperCase());
+                emotion = Emotion.of(response.getEntities().get(0).getValue());
             } catch (Exception ex) {
                 log.warn("Weren't able to parse emotion, using neutral", ex);
             }

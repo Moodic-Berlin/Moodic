@@ -41,4 +41,8 @@ public enum Emotion {
                 .map(Enum::name)
                 .collect(Collectors.toList());
     }
+
+    public static Emotion of(String emotion) {
+        return Emotion.valueOf(emotion.toUpperCase());
+    }
 }

@@ -105,7 +105,13 @@ public class FacebookController {
                 try {
                     String imageUrl = getImageUrl(messaging);
                     String emotion = getQuickReply(messaging);
-                    String genre = getPostback(messaging);
+                    String postback = getPostback(messaging);
+                    String genre = null;
+                    if (postback != null) {
+                        String[] parts = postback.split("/");
+                        emotion = parts[0];
+                        genre = parts[1];
+                    }
                     String text = getTextMessage(messaging);
 
                     int offset = 0;
@@ -114,10 +120,10 @@ public class FacebookController {
                     else {
                         if (imageUrl != null) {
                             processImage(senderId, imageUrl);
+                        } else if (genre != null) {
+                            processGenre(senderId, emotion, genre);
                         } else if (emotion != null) {
                             processEmotion(senderId, emotion, false);
-                        } else if (genre != null) {
-                            processGenre(senderId, genre);
                         } else if (text != null) {
                             processTextMessage(senderId, text);
                         } else {
@@ -127,6 +133,7 @@ public class FacebookController {
                     sendFooterQuickReply(senderId, offset, 7);
                 } catch (Exception ex) {
                     messageSender.send(senderId, "Ups, we've got an error \uD83D\uDE1E: " + ex);
+                    log.error("", ex);
                 }
             }
         }
@@ -192,18 +199,19 @@ public class FacebookController {
         if (sendEmotion)
             messageSender.send(senderId, "Your emotion is " + emotion);
         Track track = spotifyService.randomTrackForGenre(genre);
-        return sendTrack(senderId, track, genre, Collections.emptySet());
+        return sendTrack(senderId, track, emotion, genre, Collections.emptySet());
     }
 
-    private Response processGenre(String senderId, String genre) throws IOException {
-        log.info("Received genre: {}", genre);
+    private Response processGenre(String senderId, String emotion, String genre) throws IOException {
+        log.info("Received genre: {}/{}", emotion, genre);
         Set<String> excludeGenres = new HashSet<>();
         if (genre.startsWith("-")) {
             excludeGenres.addAll(Arrays.asList(genre.substring(1).split(",")));
-            genre = emotionAnalysisService.anyGenreExcept(excludeGenres);
+            genre = emotionAnalysisService.anyGenreInEmotionExcept(Emotion.of(emotion), excludeGenres);
+            log.info("Derived genre: {}/{}", emotion, genre);
         }
         Track track = spotifyService.randomTrackForGenre(genre);
-        return sendTrack(senderId, track, genre, excludeGenres);
+        return sendTrack(senderId, track, emotion, genre, excludeGenres);
     }
 
     private List<String> listenToReplies = Arrays.asList(
@@ -222,6 +230,7 @@ public class FacebookController {
 
     private Response sendTrack(String senderId,
                                Track track,
+                               String emotion,
                                String genre,
                                Set<String> excludeGenres) throws IOException {
         messageSender.sendImg(senderId, spotifyService.retrieveSpotifyImage(track));
@@ -232,10 +241,10 @@ public class FacebookController {
         ArrayList<String> buttons = new ArrayList<>(Arrays.asList("Open in Spotify",
                 spotifyService.retrieveSpotifyUrl(track),
                 COOL_I_WANT_MORE,
-                genre));
+                emotion + "/" + genre));
 
         if (!newExcludeGenres.isEmpty())
-            buttons.addAll(Arrays.asList(ANOTHER_ONE_PLEASE, "-" + StringUtils.join(newExcludeGenres, ",")));
+            buttons.addAll(Arrays.asList(ANOTHER_ONE_PLEASE, emotion + "/" + "-" + StringUtils.join(newExcludeGenres, ",")));
 
         return messageSender.sendBtns(senderId,
                 listenToReplies.get(random.nextInt(listenToReplies.size())) + ": " + track.getArtists().get(0).getName() + " - " + track.getName(),
