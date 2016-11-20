@@ -12,7 +12,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "thread_state":"new_thread",
   "call_to_actions":[
     {
-      "payload":"USER_DEFINED_PAYLOAD"
+      "payload":"THE_VERY_FIRST_BUTTON"
     }
   ]
 }' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=$FB_PAGE_ID"

@@ -30,8 +30,6 @@ import java.util.*;
 
 @RestController
 public class FacebookController {
-    public static final String COOL_I_WANT_MORE = "Cool, I want more";
-    public static final String ANOTHER_ONE_PLEASE = "Another one, please";
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final SpotifyService spotifyService;
     private final Conf conf;
@@ -107,6 +105,12 @@ public class FacebookController {
                     String emotion = getQuickReply(messaging);
                     String postback = getPostback(messaging);
                     String genre = null;
+
+                    if ("THE_VERY_FIRST_BUTTON".equals(postback)) {
+                        sendFooterQuickReply(senderId, 0, 7, false);
+                        return "";
+                    }
+
                     if (postback != null) {
                         String[] parts = postback.split("/");
                         emotion = parts[0];
@@ -130,7 +134,7 @@ public class FacebookController {
                             log.info("unknown action for {}", senderId);
                         }
                     }
-                    sendFooterQuickReply(senderId, offset, 7);
+                    sendFooterQuickReply(senderId, offset, 7, true);
                 } catch (Exception ex) {
                     messageSender.send(senderId, "Ups, we've got an error \uD83D\uDE1E: " + ex);
                     log.error("", ex);
@@ -243,18 +247,18 @@ public class FacebookController {
 
         ArrayList<String> buttons = new ArrayList<>(Arrays.asList("Open in Spotify",
                 spotifyService.retrieveSpotifyUrl(track),
-                COOL_I_WANT_MORE,
+                "Cool, I want more",
                 emotion + "/" + genre));
 
         if (emotionAnalysisService.anyGenreInEmotionExcept(Emotion.of(emotion), newExcludeGenres) != null)
-            buttons.addAll(Arrays.asList(ANOTHER_ONE_PLEASE, emotion + "/" + "-" + StringUtils.join(newExcludeGenres, ",")));
+            buttons.addAll(Arrays.asList("Another one, please", emotion + "/" + "-" + StringUtils.join(newExcludeGenres, ",")));
 
         return messageSender.sendBtns(senderId,
                 listenToReplies.get(random.nextInt(listenToReplies.size())) + ": " + track.getArtists().get(0).getName() + " - " + track.getName(),
                 buttons.toArray(new String[0]));
     }
 
-    private Response sendFooterQuickReply(String senderId, int offset, int limit) throws IOException {
+    private Response sendFooterQuickReply(String senderId, int offset, int limit, boolean explicit) throws IOException {
         QuickReplyBuilder builder = QuickReplyBuilder.builder();
         List<String> strings = Emotion.listEmotionsNoExclusiveFace();
         int len = strings.size();
@@ -266,7 +270,13 @@ public class FacebookController {
         }
         if (stillMoreAvail)
             builder.addQuickReply("MORE", "+" + to);
-        return messageSender.send(senderId, offset == 0 ? "Hey, how do you feel?" : "More emotions for you", builder.build());
+        return messageSender.send(senderId,
+                explicit
+                        ? "Or select an emotion below:"
+                        : offset == 0
+                        ? "Hey, how do you feel?"
+                        : "More emotions for you",
+                builder.build());
     }
 
     private Response sendNoEmotion(String senderId) throws IOException {
