@@ -109,7 +109,7 @@ public class FacebookController {
                     String genre = null;
 
                     if ("THE_VERY_FIRST_BUTTON".equals(postback)) {
-                        sendFooterQuickReply(senderId, 0, 7, false);
+                        sendFooterQuickReply(senderId, 0, 7, true);
                         return "";
                     }
 
@@ -136,7 +136,7 @@ public class FacebookController {
                             log.info("unknown action for {}", senderId);
                         }
                     }
-                    sendFooterQuickReply(senderId, offset, 7, true);
+                    sendFooterQuickReply(senderId, offset, 7, false);
                 } catch (Exception ex) {
                     messageSender.send(senderId, "Ups, we've got an error \uD83D\uDE1E: " + ex);
                     log.error("", ex);
