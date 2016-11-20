@@ -1,6 +1,5 @@
 package berlin.bothack.moodic.services;
 
-import berlin.bothack.moodic.enums.Emotion;
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.methods.ArtistSearchRequest;
 import com.wrapper.spotify.methods.TrackSearchRequest;
@@ -10,7 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**

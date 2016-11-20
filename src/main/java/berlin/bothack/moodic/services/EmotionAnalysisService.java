@@ -5,9 +5,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class EmotionAnalysisService {
@@ -26,6 +24,8 @@ public class EmotionAnalysisService {
         }
     }
 
+    private static Set<String> genres = new HashSet<>();
+
     private static List<EmotionGenreRow> emotionGenreRows = parseEmotion2Genre();
 
     private static List<EmotionGenreRow> parseEmotion2Genre() {
@@ -38,7 +38,9 @@ public class EmotionAnalysisService {
         String[] parts = content.split("\n");
         List<EmotionGenreRow> res = new ArrayList<>(parts.length);
         for (String part : parts) {
-            res.add(new EmotionGenreRow(part));
+            EmotionGenreRow emotionGenreRow = new EmotionGenreRow(part);
+            res.add(emotionGenreRow);
+            genres.add(emotionGenreRow.genre);
         }
         return res;
     }
@@ -56,5 +58,15 @@ public class EmotionAnalysisService {
 
     public String emotionToGenre(String emotion) {
         return emotionToGenre(Emotion.valueOf(emotion.toUpperCase()));
+    }
+
+    public String anyGenreExcept(Set<String> excludeGenres) {
+        HashSet set = new HashSet<>(genres);
+        set.removeAll(excludeGenres);
+        if (set.isEmpty())
+            return null;
+        List<String> l = new ArrayList<>(set);
+        Collections.shuffle(l);
+        return l.get(0);
     }
 }
