@@ -7,5 +7,5 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Coordinate {
     public Double lat;
-    @JsonProperty("lang") public Double lng;
+    @JsonProperty("long") public Double lng;
 }
