@@ -296,9 +296,9 @@ public class FacebookController {
             builder.addQuickReply("MORE", "+" + to);
         return messageSender.send(senderId,
                 explicit
-                        ? "Or select an emotion below:"
-                        : offset == 0
                         ? "Hey, how do you feel?"
+                        : offset == 0
+                        ? "Or select an emotion below:"
                         : "More emotions for you",
                 builder.build());
     }
