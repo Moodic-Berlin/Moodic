@@ -2,7 +2,9 @@ package berlin.bothack.moodic.services;
 
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.methods.ArtistSearchRequest;
+import com.wrapper.spotify.methods.TopTracksRequest;
 import com.wrapper.spotify.methods.TrackSearchRequest;
+import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.Image;
 import com.wrapper.spotify.models.Track;
 import org.slf4j.Logger;
@@ -84,6 +86,33 @@ public class SpotifyService {
             log.debug("Something went wrong!" + e.getMessage());
         }
     }
+
+    public Artist searchArtist(String name) {
+        final Api api = setup();
+
+        try {
+            final ArtistSearchRequest artistSearchRequest = api.searchArtists(name).build();
+
+            return artistSearchRequest.get().getItems().get(0);
+        } catch (Exception e) {
+            log.debug("Something went wrong!" + e.getMessage());
+        }
+        return null;
+    }
+
+    public Track findTopTrack(String artistId) {
+        final Api api = setup();
+        final String country = "US";
+        try {
+            final TopTracksRequest topTracksRequest = api.getTopTracksForArtist(artistId, country).build();
+            return topTracksRequest.get().get(0);
+        } catch (Exception e) {
+            log.debug("Something went wrong!" + e.getMessage());
+        }
+        return null;
+    }
+
+
 
     private String buildGenresQuery(String... genres) {
         String query = "genre:";
