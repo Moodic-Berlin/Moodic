@@ -17,7 +17,7 @@ public final class WebUtil {
             return null;
         return (forceHttps ? "https" : request.getScheme()) + "://" +   // "http" + "://
                 request.getServerName() +       // "myhost"
-                ":" + request.getServerPort();
+                (forceHttps ? "" : ":" + request.getServerPort());
     }
 
     private WebUtil() {
