@@ -14,6 +14,7 @@ echo "DEPLOY..."
 echo
 
 scp moodic.conf target/moodic.jar $USER@$SERV:~/
+#scp moodic.conf $USER@$SERV:~/
 
 echo
 echo "RESTART..."
