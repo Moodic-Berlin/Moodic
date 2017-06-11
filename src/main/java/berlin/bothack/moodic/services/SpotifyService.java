@@ -4,16 +4,22 @@ import berlin.bothack.moodic.model.eventful.Concert;
 import berlin.bothack.moodic.model.eventful.EventfulDTO;
 import com.evdb.javaapi.EVDBAPIException;
 import com.evdb.javaapi.EVDBRuntimeException;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.SettableFuture;
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.methods.ArtistSearchRequest;
 import com.wrapper.spotify.methods.TopTracksRequest;
 import com.wrapper.spotify.methods.TrackSearchRequest;
+import com.wrapper.spotify.methods.authentication.ClientCredentialsGrantRequest;
 import com.wrapper.spotify.models.Artist;
+import com.wrapper.spotify.models.ClientCredentials;
 import com.wrapper.spotify.models.Image;
 import com.wrapper.spotify.models.Track;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashSet;
@@ -35,17 +41,38 @@ public class SpotifyService {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final EventfulService eventfulService;
 
+    private Api api;
+
     @Autowired
     public SpotifyService(EventfulService eventfulService) {
         this.eventfulService = eventfulService;
+        setup();
     }
 
-    private Api setup() {
-        return Api.builder()
+    @Scheduled(fixedRate = 1_800_000)
+    private void setup() {
+        log.info("Resetting Spotify API to refresh access token...");
+        api = Api.builder()
                 .clientId(SPOTIFY_CLIENT_ID)
                 .clientSecret(SPOTIFY_CLIENT_SECRET)
                 .redirectURI(SPOTIFY_REDIRECT_URI)
                 .build();
+        ClientCredentialsGrantRequest request = api.clientCredentialsGrant().build();
+        SettableFuture<ClientCredentials> responseFuture = request.getAsync();
+        Futures.addCallback(responseFuture, new FutureCallback<ClientCredentials>() {
+            @Override
+            public void onSuccess(ClientCredentials clientCredentials) {
+                log.info("Successfully retrieved an access token! " + clientCredentials.getAccessToken());
+                log.info("The access token expires in " + clientCredentials.getExpiresIn() + " seconds");
+
+                api.setAccessToken(clientCredentials.getAccessToken());
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                log.error("Error refresh spotify token", throwable);
+            }
+        });
     }
 
     public Set<String> retrieveSpotifyUrls(List<Track> tracks) {
@@ -83,8 +110,6 @@ public class SpotifyService {
     }
 
     public List<Track> searchTracksByGenre(String genre) {
-        final Api api = setup();
-
         try {
             final TrackSearchRequest trackSearchRequest = api.searchTracks(buildGenresQuery(genre)).build();
             return trackSearchRequest.get().getItems();
@@ -96,8 +121,6 @@ public class SpotifyService {
     }
 
     public void searchArtistsByGenre(String genre) {
-        final Api api = setup();
-
         try {
             final ArtistSearchRequest artistSearchRequest = api.searchArtists(buildGenresQuery(genre)).build();
 
@@ -108,8 +131,6 @@ public class SpotifyService {
     }
 
     public Artist searchArtist(String name) {
-        final Api api = setup();
-
         try {
             final ArtistSearchRequest artistSearchRequest = api.searchArtists(name).build();
 
@@ -121,7 +142,6 @@ public class SpotifyService {
     }
 
     public Track findTopTrack(String artistId) {
-        final Api api = setup();
         final String country = "US";
         try {
             final TopTracksRequest topTracksRequest = api.getTopTracksForArtist(artistId, country).build();
