@@ -90,7 +90,7 @@ public class SpotifyService {
             return trackSearchRequest.get().getItems();
             //log.info(trackSearchRequest.getJson());
         } catch (Exception e) {
-            log.debug("Something went wrong!" + e.getMessage());
+            log.error("Something went wrong!" + e.getMessage());
         }
         return null;
     }
