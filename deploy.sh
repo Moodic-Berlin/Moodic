@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-USER=apps
-SERV=ec2-54-218-119-31.us-west-2.compute.amazonaws.com
+USER=apps1
+#SERV=ec2-54-218-119-31.us-west-2.compute.amazonaws.com
+SERV=prod.cmlteam.com
+APP=moodic
 
 echo
 echo "BUILD..."
@@ -13,18 +15,17 @@ echo
 echo "DEPLOY..."
 echo
 
-scp moodic.conf target/moodic.jar $USER@$SERV:~/
-#scp moodic.conf $USER@$SERV:~/
+scp $APP.conf target/$APP.jar $USER@$SERV:~/
 
 echo
 echo "RESTART..."
 echo
 
 ssh $USER@$SERV "
-if [ ! -f /etc/init.d/moodic ]
+if [ ! -f /etc/init.d/$APP ]
 then
-    sudo ln -s /home/apps/moodic.jar /etc/init.d/moodic
+    sudo ln -s /home/$USER/$APP.jar /etc/init.d/$APP
 fi
-sudo /etc/init.d/moodic restart
-tail -f /var/log/moodic.log
+sudo /etc/init.d/$APP restart
+tail -f /var/log/$APP.log
 "
