@@ -34,7 +34,7 @@ public class MicrosoftCognitiveService {
         GSON = new Gson();
     }
 
-    private static final String key = "ec452cad9ba34a89a176b3794a2c6266";
+    private static final String key = "4ffe9bb603bb4ff3ac65c2405992e6ec";
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     public String buildRequestJson(String url) {
@@ -45,7 +45,7 @@ public class MicrosoftCognitiveService {
         HttpClient httpclient = HttpClients.createDefault();
 
         try {
-            URIBuilder builder = new URIBuilder("https://api.projectoxford.ai/emotion/v1.0/recognize");
+            URIBuilder builder = new URIBuilder("https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize");
 
 
             URI uri = builder.build();
